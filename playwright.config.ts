@@ -63,8 +63,7 @@ export default defineConfig({
     video: 'retain-on-failure',
     actionTimeout: 15000,
     navigationTimeout: 30000,
-    //headless: process.env.HEADLESS !== 'false',
-    headless: false, // For debugging, set to false to see the browser
+    headless: process.env.HEADLESS !== 'false', // Respects HEADLESS env var (CI runs headless)
     viewport: { width: 1920, height: 1080 },
     ignoreHTTPSErrors: true,
     // ADD THESE FOR POP-UP HANDLING:
