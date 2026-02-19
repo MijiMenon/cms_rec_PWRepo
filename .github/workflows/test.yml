@@ -63,7 +63,9 @@ jobs:
       - name: Run Playwright tests
         env:
           TEST_ENV: ${{ github.event.inputs.environment || 'QA' }}
-          BASE_URL: ${{ secrets.BASE_URL }}
+          ENV_PREFIX: ${{ secrets.ENV_PREFIX || 'qa2' }}
+          AUTH_CREDENTIAL_KEY: ${{ secrets.AUTH_CREDENTIAL_KEY || 'RBCClient' }}
+          HEADLESS: true
         run: |
           npx playwright test --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/4
 
@@ -72,15 +74,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.browser }}-${{ matrix.shard }}
-          path: test-results/
-          retention-days: 30
-
-      - name: Upload HTML report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report-${{ matrix.browser }}-${{ matrix.shard }}
-          path: reports/html/
+          path: |
+            test-runs/**/html-report/
+            test-runs/**/json-report/
+            test-runs/**/junit-report/
           retention-days: 30
 
       - name: Upload screenshots
@@ -88,7 +85,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: screenshots-${{ matrix.browser }}-${{ matrix.shard }}
-          path: screenshots/
+          path: test-runs/**/screenshots/
           retention-days: 30
 
       - name: Upload Allure results
@@ -96,7 +93,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: allure-results-${{ matrix.browser }}-${{ matrix.shard }}
-          path: allure-results/
+          path: test-runs/**/allure-results/
           retention-days: 30
 
   report:
@@ -163,7 +160,9 @@ jobs:
       - name: Run smoke tests
         env:
           TEST_ENV: ${{ github.event.inputs.environment || 'QA' }}
-          BASE_URL: ${{ secrets.BASE_URL }}
+          ENV_PREFIX: ${{ secrets.ENV_PREFIX || 'qa2' }}
+          AUTH_CREDENTIAL_KEY: ${{ secrets.AUTH_CREDENTIAL_KEY || 'RBCClient' }}
+          HEADLESS: true
         run: npm run test:smoke
 
       - name: Upload smoke test results
@@ -172,9 +171,9 @@ jobs:
         with:
           name: smoke-test-results
           path: |
-            test-results/
-            reports/
-            screenshots/
+            test-runs/**/html-report/
+            test-runs/**/screenshots/
+            test-runs/**/allure-results/
           retention-days: 7
 
   notify:
