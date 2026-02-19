@@ -18,7 +18,7 @@ This guide explains how to configure the GitHub Actions CI/CD pipeline for the P
 
 The CI/CD pipeline consists of 4 main jobs:
 
-1. **test** - Runs full test suite across multiple browsers (Chromium, Firefox, WebKit) with sharding
+1. **test** - Runs full test suite on Chromium with parallel sharding (4 workers)
 2. **smoke-test** - Runs critical smoke tests on Chromium only
 3. **report** - Generates and deploys Allure reports
 4. **notify** - Sends test execution summaries
@@ -139,30 +139,37 @@ Runs daily at 2 AM UTC.
 2. Select:
    - **Branch**: main/develop
    - **Environment**: dev/QA/prod
-   - **Browser**: all/chromium/firefox/webkit
 3. Click **Run workflow**
+
+Note: All tests run on Chromium browser with 4 parallel workers (shards).
 
 ---
 
 ## Test Execution Jobs
 
 ### Job 1: Full Test Suite (test)
-- **Browsers**: Chromium, Firefox, WebKit
-- **Sharding**: 4 parallel shards per browser (12 jobs total)
-- **Timeout**: 60 minutes
+- **Browser**: Chromium only
+- **Sharding**: 4 parallel workers (shards)
+- **Timeout**: 60 minutes per shard
 - **Artifacts**: Test results, screenshots, Allure results
 
 **Matrix Strategy:**
 ```yaml
 matrix:
-  browser: [chromium, firefox, webkit]
   shard: [1, 2, 3, 4]
 ```
 
-This creates 12 parallel jobs:
-- chromium-1, chromium-2, chromium-3, chromium-4
-- firefox-1, firefox-2, firefox-3, firefox-4
-- webkit-1, webkit-2, webkit-3, webkit-4
+This creates 4 parallel jobs running on Chromium:
+- chromium-shard-1
+- chromium-shard-2
+- chromium-shard-3
+- chromium-shard-4
+
+**Why Chromium Only?**
+- Faster execution (4 jobs instead of 12)
+- Most web applications target Chrome/Chromium as primary browser
+- Chromium engine powers Chrome, Edge, and other browsers
+- Can add more browsers later if cross-browser testing is needed
 
 ### Job 2: Smoke Tests (smoke-test)
 - **Browser**: Chromium only
@@ -173,8 +180,8 @@ This creates 12 parallel jobs:
 ### Job 3: Allure Report (report)
 - **Runs After**: test job completes
 - **Actions**:
-  - Downloads all Allure results from shards
-  - Merges results from all browsers
+  - Downloads all Allure results from 4 shards
+  - Merges results from all Chromium shards
   - Generates consolidated HTML report
   - Deploys to GitHub Pages (main branch only)
 
@@ -192,10 +199,10 @@ This creates 12 parallel jobs:
 
 | Artifact Name | Content | Retention |
 |---------------|---------|-----------|
-| `test-results-{browser}-{shard}` | HTML, JSON, JUnit reports | 30 days |
-| `screenshots-{browser}-{shard}` | Failure screenshots | 30 days |
-| `allure-results-{browser}-{shard}` | Raw Allure data | 30 days |
-| `allure-report` | Generated HTML report | 30 days |
+| `test-results-chromium-shard-{1-4}` | HTML, JSON, JUnit reports | 30 days |
+| `screenshots-chromium-shard-{1-4}` | Failure screenshots | 30 days |
+| `allure-results-chromium-shard-{1-4}` | Raw Allure data | 30 days |
+| `allure-report` | Consolidated HTML report | 30 days |
 | `smoke-test-results` | Smoke test outputs | 7 days |
 
 ### Accessing Artifacts
@@ -232,15 +239,14 @@ Pipeline will start automatically.
 # Using GitHub CLI
 gh workflow run test.yml \
   --ref main \
-  -f environment=QA \
-  -f browser=chromium
+  -f environment=QA
 
 # Using curl
 curl -X POST \
   -H "Accept: application/vnd.github.v3+json" \
   -H "Authorization: token $GITHUB_TOKEN" \
   https://api.github.com/repos/MijiMenon/cms_rec_PWRepo/actions/workflows/test.yml/dispatches \
-  -d '{"ref":"main","inputs":{"environment":"QA","browser":"all"}}'
+  -d '{"ref":"main","inputs":{"environment":"QA"}}'
 ```
 
 ---
@@ -307,13 +313,20 @@ Configure in: **Settings → Notifications → GitHub Actions**
 
 **Solution**:
 ```yaml
-# Increase number of shards in test.yml
+# In .github/workflows/test.yml, increase number of shards
 matrix:
   shard: [1, 2, 3, 4, 5, 6]  # Increase from 4 to 6
 
-# Update shard command
-run: npx playwright test --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/6
+# Update shard command (line 70)
+run: npx playwright test --project=chromium --shard=${{ matrix.shard }}/6
 ```
+
+**Changing Number of Workers:**
+To change the number of parallel workers, update the matrix in `.github/workflows/test.yml`:
+- **2 workers**: `matrix: shard: [1, 2]` and `--shard=${{ matrix.shard }}/2`
+- **4 workers** (default): `matrix: shard: [1, 2, 3, 4]` and `--shard=${{ matrix.shard }}/4`
+- **6 workers**: `matrix: shard: [1, 2, 3, 4, 5, 6]` and `--shard=${{ matrix.shard }}/6`
+- **8 workers**: `matrix: shard: [1, 2, 3, 4, 5, 6, 7, 8]` and `--shard=${{ matrix.shard }}/8`
 
 ### Issue 5: Browser Installation Fails
 **Cause**: Browser dependencies missing in runner
@@ -384,6 +397,60 @@ Result:
 
 ---
 
+## Adding Multi-Browser Testing (Optional)
+
+If you need to test on multiple browsers (Firefox, WebKit/Safari), update the workflow:
+
+### Step 1: Update Matrix in test.yml
+```yaml
+# Change from:
+matrix:
+  shard: [1, 2, 3, 4]
+
+# To:
+matrix:
+  browser: [chromium, firefox, webkit]
+  shard: [1, 2, 3, 4]
+```
+
+### Step 2: Update Browser Installation
+```yaml
+# Change from:
+- name: Install Playwright Chromium
+  run: npx playwright install --with-deps chromium
+
+# To:
+- name: Install Playwright browsers
+  run: npx playwright install --with-deps ${{ matrix.browser }}
+```
+
+### Step 3: Update Test Command
+```yaml
+# Change from:
+run: npx playwright test --project=chromium --shard=${{ matrix.shard }}/4
+
+# To:
+run: npx playwright test --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/4
+```
+
+### Step 4: Update Artifact Names
+```yaml
+# Change from:
+name: test-results-chromium-shard-${{ matrix.shard }}
+
+# To:
+name: test-results-${{ matrix.browser }}-${{ matrix.shard }}
+```
+
+This will create **12 parallel jobs** (3 browsers × 4 shards = 12 jobs).
+
+**Trade-off:**
+- ✅ Better cross-browser compatibility testing
+- ❌ 3x longer execution time
+- ❌ 3x more runner minutes consumed
+
+---
+
 ## Best Practices
 
 ### 1. Run Smoke Tests on Every PR
@@ -410,14 +477,15 @@ GitHub automatically deletes artifacts after retention period (7-30 days).
 ## Summary
 
 Your CI/CD pipeline is now configured with:
-- ✅ Multi-browser testing (Chromium, Firefox, WebKit)
-- ✅ Parallel execution with sharding (4 shards per browser)
+- ✅ Chromium browser testing (optimized for speed)
+- ✅ Parallel execution with 4 workers (sharding)
 - ✅ Smoke tests for quick validation
 - ✅ Allure report generation and hosting
 - ✅ Artifact management (reports, screenshots)
 - ✅ Multiple trigger methods (push, PR, schedule, manual)
 - ✅ Test execution summaries
 - ✅ Optional Slack notifications
+- ✅ Configurable worker count (2, 4, 6, or 8 shards)
 
 **Next Steps:**
 1. Set GitHub secrets (ENV_PREFIX, AUTH_CREDENTIAL_KEY)

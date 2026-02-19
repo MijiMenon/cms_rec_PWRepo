@@ -19,26 +19,15 @@ on:
           - dev
           - QA
           - prod
-      browser:
-        description: 'Browser to test'
-        required: false
-        default: 'all'
-        type: choice
-        options:
-          - all
-          - chromium
-          - firefox
-          - webkit
 
 jobs:
   test:
-    name: Run Tests
+    name: Run Tests (Chromium Shard ${{ matrix.shard }}/4)
     timeout-minutes: 60
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
         shard: [1, 2, 3, 4]
 
     steps:
@@ -54,8 +43,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps ${{ matrix.browser }}
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Create test data Excel file
         run: npx ts-node POM-Tests/test-data/excel/createTestData.ts
@@ -67,13 +56,13 @@ jobs:
           AUTH_CREDENTIAL_KEY: ${{ secrets.AUTH_CREDENTIAL_KEY || 'RBCClient' }}
           HEADLESS: true
         run: |
-          npx playwright test --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/4
+          npx playwright test --project=chromium --shard=${{ matrix.shard }}/4
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-${{ matrix.browser }}-${{ matrix.shard }}
+          name: test-results-chromium-shard-${{ matrix.shard }}
           path: |
             test-runs/**/html-report/
             test-runs/**/json-report/
@@ -84,7 +73,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: screenshots-${{ matrix.browser }}-${{ matrix.shard }}
+          name: screenshots-chromium-shard-${{ matrix.shard }}
           path: test-runs/**/screenshots/
           retention-days: 30
 
@@ -92,7 +81,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ matrix.browser }}-${{ matrix.shard }}
+          name: allure-results-chromium-shard-${{ matrix.shard }}
           path: test-runs/**/allure-results/
           retention-days: 30
 
