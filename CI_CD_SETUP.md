@@ -335,6 +335,35 @@ npx playwright install --with-deps ${{ matrix.browser }}
       libgbm1
 ```
 
+### Issue 6: Dependencies Lock File Not Found
+**Cause**: package-lock.json is missing from repository
+
+**Error Message**:
+```
+Dependencies lock file is not found in /home/runner/work/cms_rec_PWRepo/cms_rec_PWRepo.
+Supported file patterns: package-lock.json,npm-shrinkwrap.json,yarn.lock
+```
+
+**Solution**:
+```bash
+# This has been fixed - package-lock.json is now committed to repository
+# If you see this error, ensure package-lock.json is not in .gitignore
+
+# To regenerate package-lock.json:
+npm install
+
+# Commit the lock file:
+git add package-lock.json
+git commit -m "Add package-lock.json for CI/CD caching"
+git push
+```
+
+**Why package-lock.json is important**:
+- Ensures consistent dependency versions across all environments
+- Enables npm caching in GitHub Actions (faster builds)
+- Prevents "works on my machine" issues
+- Required for `cache: 'npm'` in setup-node action
+
 ### Viewing Logs
 1. Go to **Actions** tab
 2. Click on workflow run
