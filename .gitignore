@@ -1,0 +1,75 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Test Results (New Structure)
+POM-Tests/test-results/
+POM-Tests/test-reports/
+POM-Tests/allure-results/
+POM-Tests/allure-report/
+playwright-report/
+
+# Compiled Output
+dist/
+build/
+*.js
+*.js.map
+*.d.ts
+!playwright.config.js
+!update-imports.js
+
+# Old Structure (Deprecated)
+src/
+data/
+reports/
+test-results/
+logs/
+screenshots/
+
+# Test Run Directories
+test-runs/
+test-summary.json
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Logs (New Structure)
+POM-Tests/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-*
+
+# Playwright
+playwright/.cache/
+.playwright/
+
+# Screenshots (New Structure)
+POM-Tests/screenshots/
+videos/
+traces/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Temp Files
+tmp/
+temp/
+*.tmp

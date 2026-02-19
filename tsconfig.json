@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["node", "@playwright/test"],
+    "baseUrl": "./",
+    "paths": {
+      "@page-objects/*": ["POM-Tests/page-objects/*"],
+      "@features/*": ["POM-Tests/feature-scenarios/*"],
+      "@components/*": ["POM-Framework/reusable-components/*"],
+      "@utils/*": ["POM-Framework/utilities/*"],
+      "@interfaces/*": ["POM-Framework/interfaces/*"],
+      "@hooks/*": ["POM-Framework/test-hooks/*"],
+      "@fixtures/*": ["POM-Framework/test-fixtures/*"],
+      "@config/*": ["POM-Framework/environment-config/*"],
+      "@test-suites/*": ["POM-Tests/test-suites/*"],
+      "@test-data/*": ["POM-Tests/test-data/*"]
+    }
+  },
+  "include": [
+    "POM-Framework/**/*",
+    "POM-Tests/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "POM-Tests/test-results",
+    "POM-Tests/test-reports",
+    "POM-Tests/screenshots",
+    "POM-Tests/logs"
+  ]
+}

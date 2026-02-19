@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  playwright-tests:
+    build: .
+    container_name: automation-framework
+    environment:
+      - BASE_URL=${BASE_URL:-https://example.com}
+      - TEST_ENV=${TEST_ENV:-staging}
+      - HEADLESS=${HEADLESS:-true}
+      - WORKERS=${WORKERS:-4}
+    volumes:
+      # Mount reports and results to host
+      - ./reports:/app/reports
+      - ./test-results:/app/test-results
+      - ./screenshots:/app/screenshots
+      - ./logs:/app/logs
+      - ./allure-results:/app/allure-results
+    command: npm test
+
+  # Optional: Allure report server
+  allure-report:
+    image: frankescobar/allure-docker-service:latest
+    container_name: allure-report-server
+    ports:
+      - "5050:5050"
+    environment:
+      - CHECK_RESULTS_EVERY_SECONDS=3
+      - KEEP_HISTORY=1
+    volumes:
+      - ./allure-results:/app/allure-results
+      - ./allure-reports:/app/default-reports
+
+# Usage:
+# docker-compose up playwright-tests      # Run tests
+# docker-compose up allure-report        # Start Allure server
+# docker-compose down                    # Stop services

@@ -1,0 +1,21 @@
+{
+    "debtorDetails": {
+        "businessName": "Test Business",
+        "address": "123 Test Street",
+        "province": "ONTARIO",
+        "zipCode": "A1B 2C3",
+        "city": "Test City",
+        "srfNumber": "123212341"
+    },
+    "agreementDetails": {
+        "securityAgreement": "CONDITIONAL SALES CONTRACT",
+        "agreement": "DEMAND",
+        "transit": "45453",
+        "loanNumber": "67565432781",
+        "locationCode": "303040",
+        "districtCode": "12",
+        "originalLoanBalance": "10000",
+        "balanceOwing": "5000",
+        "arrears": "200"
+    }
+ }

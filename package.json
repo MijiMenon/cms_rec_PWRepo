@@ -1,0 +1,48 @@
+{
+  "name": "automation-framework",
+  "version": "1.0.0",
+  "description": "Data-driven test automation framework with TypeScript, Playwright, and POM design pattern",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",    
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:parallel": "playwright test --workers=4",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:priority": "playwright test --grep @Priority",
+    "test:regression": "playwright test --grep @regression",
+    "report": "playwright show-report",
+    "allure:generate": "allure generate ./allure-results --clean",
+    "allure:open": "allure open ./allure-report",
+    "allure:serve": "allure serve ./allure-results",
+    "clean": "rm -rf test-results reports allure-results allure-report",
+    "install:browsers": "playwright install"
+  },
+  "keywords": [
+    "playwright",
+    "typescript",
+    "automation",
+    "testing",
+    "data-driven",
+    "page-object-model"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.3.0",
+    "allure-playwright": "^2.15.0",
+    "csv-parse": "^5.5.0",
+    "dotenv": "^16.3.0",
+    "winston": "^3.11.0",
+    "xlsx": "^0.18.5"
+  }
+}
