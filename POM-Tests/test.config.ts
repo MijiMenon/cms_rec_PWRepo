@@ -112,7 +112,7 @@ export const testConfig: TestConfig = {
       credentials: {
         RBCClient: {
           username: 'MIJIRBC',
-          password: 'Assetuse@1',
+          password: 'Assetuse@3',
         },
         TDFClient: {
           username: 'MIJITDF',

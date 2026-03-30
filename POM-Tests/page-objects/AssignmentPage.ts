@@ -2,6 +2,8 @@ import { expect, type FrameLocator, type Locator, type Page } from '@playwright/
 import { BasePage } from './base/BasePage';
 import { logger } from '../../POM-Framework/utilities/logger';
 import { WaitCondition } from '../../POM-Framework/interfaces/index';
+import { ScreenshotHelper } from '../../POM-Framework/utilities/screenshotHelper';
+import { time } from 'console';
 
 export interface DebtorDetails {
     businessName: string;
@@ -58,6 +60,8 @@ export class AssignmentPage extends BasePage {
     readonly balanceOwing: Locator;
     readonly arrears: Locator;
     readonly logout: Locator;
+    readonly assignDate: Locator;
+    readonly markAsCompleteCheckBox: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -88,6 +92,8 @@ export class AssignmentPage extends BasePage {
         this.balanceOwing = this.frame.locator('#txtBalanceOwing');
         this.arrears = this.frame.locator('id=txtArrears');
         this.logout = this.frame.getByText('Logout');
+        this.assignDate = this.frame.getByRole('link', { name: 'Assign Date' });
+        this.markAsCompleteCheckBox = this.frame.locator('id=DataGrid1__ctl2_chkComplete');
     }
 
     async logFramePresence() {
@@ -211,10 +217,8 @@ export class AssignmentPage extends BasePage {
             // Log frame state for debugging
             await this.logFramePresence();
 
-            // Take screenshot for debugging
-            const screenshotPath = `POM-Tests/screenshots/manual-assignment-open-failure-${Date.now()}.png`;
-            await this.takeScreenshot({ path: screenshotPath });
-            logger.error(`Screenshot saved: ${screenshotPath}`);
+            // Take screenshot for debugging (saves to test-runs directory)
+            await ScreenshotHelper.capture(this.page, 'manual-assignment-open-failure', true);
 
             throw error;
         }
@@ -225,6 +229,7 @@ export class AssignmentPage extends BasePage {
         await this.businessName.fill(details.businessName);
         await this.address.fill(details.address);
         await this.province.selectOption(details.province);
+        await this.province.selectOption([details.province,details.province]);
         await this.zipCode.fill(details.zipCode);
         await this.city.fill(details.city);
         await this.srfNumber.pressSequentially(details.srfNumber, { delay: 100, timeout: 3000 });
@@ -257,7 +262,12 @@ export class AssignmentPage extends BasePage {
 
     async logoutUser() {
         logger.info('Logging out user');
+        // Wait for middle frame to load before clicking logout
+        logger.info('Waiting for middle frame to load');
+        await this.page.waitForSelector('frame[name="middle"]', { timeout: 15000 });
+        await this.logout.waitFor({ state: 'visible', timeout: 10000 });
         await this.logout.click();
+        logger.info('Logout button clicked');
     }
 
     async verifyTitleofThePage(expectedTitle: string) {
@@ -271,5 +281,45 @@ export class AssignmentPage extends BasePage {
         await this.fillDebtorDetails(assignmentData.debtorDetails);
         await this.fillAgreementDetails(assignmentData.agreementDetails);
         await this.submitAssignment();
+    }
+
+    async markAssignmentAsComplete() {
+        logger.info('Marking assignment as complete');
+        await expect(this.logout).toBeVisible({ timeout: 10000 });
+        await this.assignDate.click();
+        logger.info('Assign date clicked');
+        await expect(this.logout).toBeVisible({ timeout: 10000 });
+        logger.info('Assignment marking as complete');
+
+        // Ensure the checkbox is visible and attached to DOM
+        await this.markAsCompleteCheckBox.waitFor({ state: 'attached', timeout: 10000 });
+        await this.markAsCompleteCheckBox.waitFor({ state: 'visible', timeout: 10000 });
+
+        // Check if checkbox is enabled
+        const isEnabled = await this.markAsCompleteCheckBox.isEnabled();
+        logger.info(`Mark as complete checkbox - Visible: true, Enabled: ${isEnabled}`);
+
+        // Scroll the checkbox into view
+        await this.markAsCompleteCheckBox.scrollIntoViewIfNeeded();
+        logger.info('Checkbox scrolled into view');
+        await this.waitForPageLoad(time, 10000); // Wait for any potential page load after scrolling
+        this.markAsCompleteCheckBox.click();
+        // Use Promise.all to handle dialog and click together
+        const [dialog] = await Promise.all([
+            this.page.waitForEvent('dialog'),
+        ]);
+
+        logger.info(`Confirmation dialog appeared: ${dialog.message()}`);
+        await dialog.accept();
+        logger.info('Dialog accepted, assignment marked as complete');
+    }
+
+    async completeAssignment() {
+        logger.info('Assignment marking as complete');
+        const dialogPromise = this.page.waitForEvent('dialog');
+        const dialog = await dialogPromise;
+        logger.info(`Alert message: ${dialog.message()}`);
+        await dialog.accept();
+        logger.info('Dialog accepted, assignment marked as complete');
     }
 }

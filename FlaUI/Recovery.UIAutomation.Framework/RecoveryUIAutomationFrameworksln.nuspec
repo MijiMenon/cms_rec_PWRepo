@@ -1,0 +1,20 @@
+﻿<package>
+
+	<metadata>
+		<id>RecoveryUIAutomationFrameworksln</id>
+		<version>5.3.0.26478</version>
+		<authors>as1610</authors>
+		<owners>as1610</owners>
+		<licenseUrl>http://example.com</licenseUrl>
+		<projectUrl>http://example.com</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>The RecoveryUIAutomationFrameworksln deployment package</description>
+		<releaseNotes></releaseNotes>
+	</metadata>
+	<files>
+		<!-- RecoveryUIAutomationFrameworksln FILES -->
+		<file src="..\Recovery.UIAutomation.Tests\bin\Release\**\*" target="bin\" />
+		<file src="..\Recovery.UIAutomation.Tests\packages\**\*" target="packages\" />
+	</files>  
+
+</package>

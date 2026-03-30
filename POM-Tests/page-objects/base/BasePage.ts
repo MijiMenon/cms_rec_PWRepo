@@ -1,6 +1,7 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { WaitCondition, ScreenshotOptions } from '../../../POM-Framework/interfaces';
 import { logger } from '../../../POM-Framework/utilities/logger';
+import path from 'path';
 
 /**
  * BasePage - Abstract base class for all page objects
@@ -29,6 +30,7 @@ export abstract class BasePage {
   async waitForPageLoad(): Promise<void> {
     await this.page.waitForLoadState('domcontentloaded');
     await this.page.waitForLoadState('networkidle');
+    await this.page.waitForTimeout(500); // Small delay to ensure all elements are rendered
   }
 
   /**
@@ -204,10 +206,12 @@ export abstract class BasePage {
   }
 
   /**
-   * Take screenshot
+   * Take screenshot (saves to test-runs directory)
    */
   async takeScreenshot(options?: ScreenshotOptions): Promise<Buffer> {
-    const screenshotPath = options?.path || `POM-Tests/screenshots/${Date.now()}.png`;
+    // Use TEST_RUN_DIR from environment (set by globalSetup) or default to test-runs
+    const runDir = process.env.TEST_RUN_DIR || path.join(process.cwd(), 'test-runs', 'latest');
+    const screenshotPath = options?.path || path.join(runDir, 'screenshots', `${Date.now()}.png`);
     logger.info(`Taking screenshot: ${screenshotPath}`);
     return await this.page.screenshot({
       path: screenshotPath,

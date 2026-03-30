@@ -1,7 +1,9 @@
 import { test as base } from '@playwright/test';
 import { LoginPage } from '../../POM-Tests/page-objects/LoginPage';
 import { HomePage } from '../../POM-Tests/page-objects/HomePage';
+import { AssignmentPage } from '../../POM-Tests/page-objects/AssignmentPage';
 import { LoginFeature } from '../../POM-Tests/feature-scenarios/LoginFeature';
+import { AssignmentCreationFeature } from '../../POM-Tests/feature-scenarios/AssignmentCreationFeature';
 import { HeaderComponent } from '../reusable-components/HeaderComponent';
 import { DataProvider } from '../utilities/data-readers/dataProvider';
 import { ScreenshotHelper } from '../utilities/screenshotHelper';
@@ -16,9 +18,11 @@ type TestFixtures = {
   // Page Objects
   loginPage: LoginPage;
   homePage: HomePage;
+  assignmentPage: AssignmentPage;
 
   // Features
   loginFeature: LoginFeature;
+  assignmentCreationFeature: AssignmentCreationFeature;
 
   // Components
   headerComponent: HeaderComponent;
@@ -48,10 +52,20 @@ export const test = base.extend<TestFixtures>({
     await use(homePage);
   },
 
+  assignmentPage: async ({ page }, use) => {
+    const assignmentPage = new AssignmentPage(page);
+    await use(assignmentPage);
+  },
+
   // Feature Fixtures
   loginFeature: async ({ page }, use) => {
     const loginFeature = new LoginFeature(page);
     await use(loginFeature);
+  },
+
+  assignmentCreationFeature: async ({ page }, use) => {
+    const assignmentCreationFeature = new AssignmentCreationFeature(page);
+    await use(assignmentCreationFeature);
   },
 
   // Component Fixtures
@@ -115,9 +129,19 @@ export const testWithScreenshot = base.extend<TestFixtures>({
     await use(homePage);
   },
 
+  assignmentPage: async ({ page }, use) => {
+    const assignmentPage = new AssignmentPage(page);
+    await use(assignmentPage);
+  },
+
   loginFeature: async ({ page }, use) => {
     const loginFeature = new LoginFeature(page);
     await use(loginFeature);
+  },
+
+  assignmentCreationFeature: async ({ page }, use) => {
+    const assignmentCreationFeature = new AssignmentCreationFeature(page);
+    await use(assignmentCreationFeature);
   },
 
   headerComponent: async ({ page }, use) => {

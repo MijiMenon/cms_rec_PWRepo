@@ -370,4 +370,77 @@ export class ConfigReader {
     );
     logger.info('=============================');
   }
+
+  /**
+   * Get database configuration from environment variables
+   *
+   * Required environment variables:
+   * - DB_SERVER: Database server address (can include port as "server,port")
+   * - DB_USER: Database username
+   * - DB_PASSWORD: Database password
+   *
+   * Optional environment variables:
+   * - DB_PORT: Database port (default: 1558, ignored if port is in DB_SERVER)
+   * - DB_ENCRYPT: Enable encryption (default: true)
+   * - DB_TRUST_SERVER_CERTIFICATE: Trust server certificate (default: true)
+   * - DB_REQUEST_TIMEOUT: Request timeout in ms (default: 30000)
+   * - DB_CONNECTION_TIMEOUT: Connection timeout in ms (default: 15000)
+   * - DB_POOL_MIN: Minimum pool size (default: 0)
+   * - DB_POOL_MAX: Maximum pool size (default: 10)
+   * - DB_POOL_IDLE_TIMEOUT: Pool idle timeout in ms (default: 30000)
+   *
+   * Note: Database name is not specified - connection uses the default database for the user
+   *
+   * @returns DatabaseConfig object
+   * @throws Error if required configuration is missing
+   */
+  static getDatabaseConfig(): any {
+    const server = process.env.DB_SERVER;
+    const user = process.env.DB_USER;
+    const password = process.env.DB_PASSWORD;
+
+    if (!server || !user || !password) {
+      const missing = [];
+      if (!server) missing.push('DB_SERVER');
+      if (!user) missing.push('DB_USER');
+      if (!password) missing.push('DB_PASSWORD');
+
+      throw new Error(
+        `Missing required database configuration: ${missing.join(', ')}. ` +
+        `Please check your .env file.`
+      );
+    }
+
+    // Parse server string if it contains port in format "server,port"
+    let actualServer = server;
+    let actualPort = parseInt(process.env.DB_PORT || '1558');
+
+    if (server.includes(',')) {
+      const parts = server.split(',');
+      actualServer = parts[0];
+      actualPort = parseInt(parts[1]);
+    }
+
+    const config = {
+      server: actualServer,
+      port: actualPort,
+      user,
+      password,
+      options: {
+        encrypt: process.env.DB_ENCRYPT !== 'false', // default true
+        trustServerCertificate: process.env.DB_TRUST_SERVER_CERTIFICATE !== 'false', // default true (matches reference)
+        requestTimeout: parseInt(process.env.DB_REQUEST_TIMEOUT || '30000'),
+        connectionTimeout: parseInt(process.env.DB_CONNECTION_TIMEOUT || '15000'),
+        pool: {
+          min: parseInt(process.env.DB_POOL_MIN || '0'), // default 0 (matches reference)
+          max: parseInt(process.env.DB_POOL_MAX || '10'),
+          idleTimeoutMillis: parseInt(process.env.DB_POOL_IDLE_TIMEOUT || '30000'), // matches reference
+        },
+        enableArithAbort: true,
+      },
+    };
+
+    logger.info(`Database config loaded for: ${config.server}:${config.port}`);
+    return config;
+  }
 }

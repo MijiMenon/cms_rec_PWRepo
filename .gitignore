@@ -19,7 +19,6 @@ build/
 *.js.map
 *.d.ts
 !playwright.config.js
-!update-imports.js
 
 # Old Structure (Deprecated)
 src/

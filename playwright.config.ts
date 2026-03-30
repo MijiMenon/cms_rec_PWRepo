@@ -22,7 +22,6 @@ function getRunDirectory(): string {
   const minutes = String(now.getMinutes()).padStart(2, '0');
   const seconds = String(now.getSeconds()).padStart(2, '0');
   const runFolderName = `${year}-${month}-${day}_${hours}-${minutes}-${seconds}`;
-
   const runDir = path.join(process.cwd(), 'test-runs', runFolderName);
 
   // Create directory if it doesn't exist
@@ -60,7 +59,7 @@ export default defineConfig({
     baseURL: ConfigReader.getBaseUrl(),  // Dynamic URL based on TEST_ENV and ENV_PREFIX
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'only-on-failure',
     actionTimeout: 15000,
     navigationTimeout: 30000,
     headless: process.env.HEADLESS !== 'false', // Respects HEADLESS env var (CI runs headless)

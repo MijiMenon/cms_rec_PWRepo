@@ -87,3 +87,35 @@ export type BrowserType = 'chromium' | 'firefox' | 'webkit';
  * Wait condition type
  */
 export type WaitCondition = 'visible' | 'hidden' | 'attached' | 'detached';
+
+/**
+ * Database configuration interface
+ */
+export interface DatabaseConfig {
+  server: string;
+  port: number; // Parsed from server string if in "server,port" format, or from DB_PORT
+  database?: string; // Optional - if not provided, connects to user's default database
+  user: string;
+  password: string;
+  options?: {
+    encrypt?: boolean;
+    trustServerCertificate?: boolean;
+    requestTimeout?: number;
+    connectionTimeout?: number;
+    pool?: {
+      min?: number;
+      max?: number;
+      idleTimeoutMillis?: number;
+    };
+    enableArithAbort?: boolean;
+  };
+}
+
+/**
+ * Database query result interface
+ */
+export interface QueryResult<T = any> {
+  recordset: T[];
+  recordsets: T[][];
+  rowsAffected: number[];
+}

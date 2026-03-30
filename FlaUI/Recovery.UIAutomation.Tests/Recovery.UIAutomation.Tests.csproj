@@ -1,0 +1,1348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\NUnit3TestAdapter.6.1.0\build\net462\NUnit3TestAdapter.props" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\NUnit3TestAdapter.6.1.0\build\net462\NUnit3TestAdapter.props')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Microsoft.NET.Test.Sdk.18.0.1\build\net462\Microsoft.NET.Test.Sdk.props" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.NET.Test.Sdk.18.0.1\build\net462\Microsoft.NET.Test.Sdk.props')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Microsoft.CodeCoverage.18.0.1\build\netstandard2.0\Microsoft.CodeCoverage.props" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.CodeCoverage.18.0.1\build\netstandard2.0\Microsoft.CodeCoverage.props')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.MSBuild.2.0.2\build\Microsoft.Testing.Platform.MSBuild.props" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.MSBuild.2.0.2\build\Microsoft.Testing.Platform.MSBuild.props')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.2.0.2\build\netstandard2.0\Microsoft.Testing.Platform.props" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.2.0.2\build\netstandard2.0\Microsoft.Testing.Platform.props')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\NUnit.4.4.0\build\NUnit.props" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\NUnit.4.4.0\build\NUnit.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4D3C7352-3010-422C-A548-61F7AAB0BB09}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Recovery.UIAutomation.Tests</RootNamespace>
+    <AssemblyName>Recovery.UIAutomation.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="FlaUI.Core, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\FlaUI.Core.5.0.0\lib\net48\FlaUI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FlaUI.UIA2, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\FlaUI.UIA2.5.0.0\lib\net48\FlaUI.UIA2.dll</HintPath>
+    </Reference>
+    <Reference Include="FlaUI.UIA3, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\FlaUI.UIA3.5.0.0\lib\net48\FlaUI.UIA3.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.UIAutomationClient, Version=10.0.19041.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Interop.UIAutomationClient.10.19041.0\lib\net45\Interop.UIAutomationClient.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\net462\Microsoft.Extensions.DependencyModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.MSBuild, Version=2.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.MSBuild.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.Telemetry, Version=2.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions, Version=2.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.TrxReport.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.VSTestBridge, Version=2.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.VSTestBridge.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Platform, Version=2.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\Microsoft.Testing.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.AdapterUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\Microsoft.TestPlatform.AdapterUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.CoreUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.PlatformAbstractions, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\Microsoft.TestPlatform.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.CodeCoverage.18.0.1\lib\net462\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.13.3.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\NUnit.3.13.3\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.CodeDom, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.CodeDom.8.0.0\lib\net462\System.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.Collections.Immutable.8.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.Diagnostics.DiagnosticSource.6.0.0\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Pipelines, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.IO.Pipelines.10.0.0\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.Reflection.Metadata.8.0.0\lib\net462\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Text.Encodings.Web, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.Text.Encodings.Web.10.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.Text.Json.10.0.0\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Tesseract, Version=5.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Recovery.UIAutomation.Framework\packages\Tesseract.5.2.0\lib\net48\Tesseract.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestSuits\AssetRms\AssetRmsTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="packages\FlaUI.Core.5.0.0\.signature.p7s" />
+    <None Include="packages\FlaUI.Core.5.0.0\CHANGELOG.md" />
+    <None Include="packages\FlaUI.Core.5.0.0\FlaUI.Core.5.0.0.nupkg" />
+    <None Include="packages\FlaUI.UIA2.5.0.0\.signature.p7s" />
+    <None Include="packages\FlaUI.UIA2.5.0.0\CHANGELOG.md" />
+    <None Include="packages\FlaUI.UIA2.5.0.0\FlaUI.UIA2.5.0.0.nupkg" />
+    <None Include="packages\FlaUI.UIA3.5.0.0\.signature.p7s" />
+    <None Include="packages\FlaUI.UIA3.5.0.0\CHANGELOG.md" />
+    <None Include="packages\FlaUI.UIA3.5.0.0\FlaUI.UIA3.5.0.0.nupkg" />
+    <None Include="packages\Interop.UIAutomationClient.10.19041.0\.signature.p7s" />
+    <None Include="packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" />
+    <None Include="packages\Interop.UIAutomationClient.10.19041.0\Interop.UIAutomationClient.10.19041.0.nupkg" />
+    <None Include="packages\Interop.UIAutomationClient.10.19041.0\tools\install.ps1" />
+    <None Include="packages\Microsoft.ApplicationInsights.2.23.0\.signature.p7s" />
+    <None Include="packages\Microsoft.ApplicationInsights.2.23.0\Microsoft.ApplicationInsights.2.23.0.nupkg" />
+    <None Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\.signature.p7s" />
+    <None Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\buildTransitive\net461\Microsoft.Bcl.AsyncInterfaces.targets" />
+    <None Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\Microsoft.Bcl.AsyncInterfaces.10.0.0.nupkg" />
+    <None Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\PACKAGE.md" />
+    <None Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\.signature.p7s" />
+    <None Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\buildTransitive\net461\Microsoft.Extensions.DependencyModel.targets" />
+    <None Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\buildTransitive\net8.0\_._" />
+    <None Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\buildTransitive\netcoreapp2.0\Microsoft.Extensions.DependencyModel.targets" />
+    <None Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\Microsoft.Extensions.DependencyModel.10.0.0.nupkg" />
+    <None Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\PACKAGE.md" />
+    <None Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\.signature.p7s" />
+    <None Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\buildMultiTargeting\Microsoft.Testing.Extensions.Telemetry.props" />
+    <None Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\buildTransitive\net8.0\Microsoft.Testing.Extensions.Telemetry.props" />
+    <None Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\buildTransitive\net9.0\Microsoft.Testing.Extensions.Telemetry.props" />
+    <None Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\buildTransitive\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props" />
+    <None Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\build\net8.0\Microsoft.Testing.Extensions.Telemetry.props" />
+    <None Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\build\net9.0\Microsoft.Testing.Extensions.Telemetry.props" />
+    <None Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props" />
+    <None Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\Microsoft.Testing.Extensions.Telemetry.2.0.2.nupkg" />
+    <None Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\PACKAGE.md" />
+    <None Include="packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\.signature.p7s" />
+    <None Include="packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2.nupkg" />
+    <None Include="packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\PACKAGE.md" />
+    <None Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\.signature.p7s" />
+    <None Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\Microsoft.Testing.Extensions.VSTestBridge.2.0.2.nupkg" />
+    <None Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\PACKAGE.md" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\.signature.p7s" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\buildMultiTargeting\Microsoft.Testing.Platform.props" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\buildMultiTargeting\Microsoft.Testing.Platform.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\buildTransitive\net8.0\Microsoft.Testing.Platform.props" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\buildTransitive\net8.0\Microsoft.Testing.Platform.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\buildTransitive\net9.0\Microsoft.Testing.Platform.props" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\buildTransitive\net9.0\Microsoft.Testing.Platform.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\buildTransitive\netstandard2.0\Microsoft.Testing.Platform.props" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\buildTransitive\netstandard2.0\Microsoft.Testing.Platform.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\build\net8.0\Microsoft.Testing.Platform.props" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\build\net8.0\Microsoft.Testing.Platform.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\build\net9.0\Microsoft.Testing.Platform.props" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\build\net9.0\Microsoft.Testing.Platform.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\build\netstandard2.0\Microsoft.Testing.Platform.props" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\build\netstandard2.0\Microsoft.Testing.Platform.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\Microsoft.Testing.Platform.2.0.2.nupkg" />
+    <None Include="packages\Microsoft.Testing.Platform.2.0.2\PACKAGE.md" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\.signature.p7s" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\buildMultiTargeting\Microsoft.Testing.Platform.MSBuild.CustomTestTarget.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\buildMultiTargeting\Microsoft.Testing.Platform.MSBuild.props" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\buildMultiTargeting\Microsoft.Testing.Platform.MSBuild.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\buildMultiTargeting\Microsoft.Testing.Platform.MSBuild.VSTest.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\buildTransitive\Microsoft.Testing.Platform.MSBuild.props" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\buildTransitive\Microsoft.Testing.Platform.MSBuild.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\build\Microsoft.Testing.Platform.MSBuild.props" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\build\Microsoft.Testing.Platform.MSBuild.targets" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\Microsoft.Testing.Platform.MSBuild.2.0.2.nupkg" />
+    <None Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\PACKAGE.md" />
+    <None Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\.signature.p7s" />
+    <None Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\Microsoft.TestPlatform.AdapterUtilities.18.0.1.nupkg" />
+    <None Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\.signature.p7s" />
+    <None Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\Microsoft.TestPlatform.ObjectModel.18.0.1.nupkg" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\.signature.p7s" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\buildTransitive\MSTest.Analyzers.props" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\buildTransitive\MSTest.Analyzers.targets" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\globalconfigs\mstest-all.globalconfig" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\globalconfigs\mstest-default.globalconfig" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\globalconfigs\mstest-none.globalconfig" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\globalconfigs\mstest-recommended.globalconfig" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\MSTest.Analyzers.4.0.2.nupkg" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\PACKAGE.md" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\tools\install.ps1" />
+    <None Include="packages\MSTest.Analyzers.4.0.2\tools\uninstall.ps1" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\.signature.p7s" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net462\MSTest.TestAdapter.props" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net462\MSTest.TestAdapter.targets" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net8.0\MSTest.TestAdapter.props" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net8.0\MSTest.TestAdapter.targets" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net9.0\MSTest.TestAdapter.props" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net9.0\MSTest.TestAdapter.targets" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\uap10.0\MSTest.TestAdapter.props" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\uap10.0\MSTest.TestAdapter.targets" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\build\net462\MSTest.TestAdapter.props" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\build\net462\MSTest.TestAdapter.targets" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\build\net8.0\MSTest.TestAdapter.props" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\build\net8.0\MSTest.TestAdapter.targets" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\build\net9.0\MSTest.TestAdapter.props" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\build\net9.0\MSTest.TestAdapter.targets" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\build\uap10.0\MSTest.TestAdapter.props" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\build\uap10.0\MSTest.TestAdapter.targets" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\MSTest.TestAdapter.4.0.2.nupkg" />
+    <None Include="packages\MSTest.TestAdapter.4.0.2\PACKAGE.md" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\.signature.p7s" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net462\MSTest.TestFramework.targets" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net8.0\MSTest.TestFramework.targets" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net9.0\MSTest.TestFramework.targets" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\netstandard2.0\MSTest.TestFramework.targets" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\uap10.0\MSTest.TestFramework.targets" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\build\net462\MSTest.TestFramework.targets" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\build\net8.0\MSTest.TestFramework.targets" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\build\net9.0\MSTest.TestFramework.targets" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\build\netstandard2.0\MSTest.TestFramework.targets" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\build\uap10.0\MSTest.TestFramework.targets" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\MSTest.TestFramework.4.0.2.nupkg" />
+    <None Include="packages\MSTest.TestFramework.4.0.2\PACKAGE.md" />
+    <None Include="packages\NUnit.4.4.0\.signature.p7s" />
+    <None Include="packages\NUnit.4.4.0\build\NUnit.props" />
+    <None Include="packages\NUnit.4.4.0\NOTICES.md" />
+    <None Include="packages\NUnit.4.4.0\NUnit.4.4.0.nupkg" />
+    <None Include="packages\NUnit.4.4.0\README.md" />
+    <None Include="packages\NUnit.4.4.0\THIRD_PARTY_NOTICES.md" />
+    <None Include="packages\NUnit.Console.3.21.0\.signature.p7s" />
+    <None Include="packages\NUnit.Console.3.21.0\NUnit.Console.3.21.0.nupkg" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\.signature.p7s" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\NUnit.ConsoleRunner.3.21.0.nupkg" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net10.0\nunit-agent.deps.json" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net10.0\nunit-agent.dll.config" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net10.0\nunit-agent.runtimeconfig.json" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net462\nunit-agent-x86.exe.config" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net462\nunit-agent.exe.config" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net8.0\nunit-agent.deps.json" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net8.0\nunit-agent.dll.config" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net8.0\nunit-agent.runtimeconfig.json" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net9.0\nunit-agent.deps.json" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net9.0\nunit-agent.dll.config" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net9.0\nunit-agent.runtimeconfig.json" />
+    <None Include="packages\NUnit.ConsoleRunner.3.21.0\tools\nunit3-console.exe.config" />
+    <None Include="packages\NUnit.Extension.NUnitProjectLoader.3.8.0\.signature.p7s" />
+    <None Include="packages\NUnit.Extension.NUnitProjectLoader.3.8.0\NUnit.Extension.NUnitProjectLoader.3.8.0.nupkg" />
+    <None Include="packages\NUnit.Extension.NUnitProjectLoader.3.8.0\tools\nunit-project-loader.legacy.addins" />
+    <None Include="packages\NUnit.Extension.NUnitV2Driver.3.9.0\.signature.p7s" />
+    <None Include="packages\NUnit.Extension.NUnitV2Driver.3.9.0\NUnit.Extension.NUnitV2Driver.3.9.0.nupkg" />
+    <None Include="packages\NUnit.Extension.NUnitV2Driver.3.9.0\tools\nunit.v2.driver.addins" />
+    <None Include="packages\NUnit.Extension.NUnitV2ResultWriter.3.8.0\.signature.p7s" />
+    <None Include="packages\NUnit.Extension.NUnitV2ResultWriter.3.8.0\NUnit.Extension.NUnitV2ResultWriter.3.8.0.nupkg" />
+    <None Include="packages\NUnit.Extension.NUnitV2ResultWriter.3.8.0\tools\nunit-v2-result-writer.legacy.addins" />
+    <None Include="packages\NUnit.Extension.TeamCityEventListener.1.0.10\.signature.p7s" />
+    <None Include="packages\NUnit.Extension.TeamCityEventListener.1.0.10\NUnit.Extension.TeamCityEventListener.1.0.10.nupkg" />
+    <None Include="packages\NUnit.Extension.TeamCityEventListener.1.0.10\tools\teamcity-event-listener.addins" />
+    <None Include="packages\NUnit.Extension.VSProjectLoader.3.9.0\.signature.p7s" />
+    <None Include="packages\NUnit.Extension.VSProjectLoader.3.9.0\NUnit.Extension.VSProjectLoader.3.9.0.nupkg" />
+    <None Include="packages\NUnit3TestAdapter.6.0.0\.signature.p7s" />
+    <None Include="packages\NUnit3TestAdapter.6.0.0\build\net462\NUnit3TestAdapter.props" />
+    <None Include="packages\NUnit3TestAdapter.6.0.0\build\net462\NUnit3TestAdapter.targets" />
+    <None Include="packages\NUnit3TestAdapter.6.0.0\build\net8.0\NUnit3TestAdapter.props" />
+    <None Include="packages\NUnit3TestAdapter.6.0.0\build\net8.0\NUnit3TestAdapter.targets" />
+    <None Include="packages\NUnit3TestAdapter.6.0.0\docs\README.md" />
+    <None Include="packages\NUnit3TestAdapter.6.0.0\NUnit3TestAdapter.6.0.0.nupkg" />
+    <None Include="packages\System.Buffers.4.6.1\.signature.p7s" />
+    <None Include="packages\System.Buffers.4.6.1\buildTransitive\net461\System.Buffers.targets" />
+    <None Include="packages\System.Buffers.4.6.1\buildTransitive\net462\_._" />
+    <None Include="packages\System.Buffers.4.6.1\lib\netcoreapp2.0\_._" />
+    <None Include="packages\System.Buffers.4.6.1\lib\netstandard2.1\_._" />
+    <None Include="packages\System.Buffers.4.6.1\PACKAGE.md" />
+    <None Include="packages\System.Buffers.4.6.1\System.Buffers.4.6.1.nupkg" />
+    <None Include="packages\System.CodeDom.10.0.0\.signature.p7s" />
+    <None Include="packages\System.CodeDom.10.0.0\buildTransitive\net461\System.CodeDom.targets" />
+    <None Include="packages\System.CodeDom.10.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\System.CodeDom.10.0.0\buildTransitive\net8.0\_._" />
+    <None Include="packages\System.CodeDom.10.0.0\buildTransitive\netcoreapp2.0\System.CodeDom.targets" />
+    <None Include="packages\System.CodeDom.10.0.0\PACKAGE.md" />
+    <None Include="packages\System.CodeDom.10.0.0\System.CodeDom.10.0.0.nupkg" />
+    <None Include="packages\System.Collections.Immutable.10.0.0\.signature.p7s" />
+    <None Include="packages\System.Collections.Immutable.10.0.0\buildTransitive\net461\System.Collections.Immutable.targets" />
+    <None Include="packages\System.Collections.Immutable.10.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\System.Collections.Immutable.10.0.0\buildTransitive\net8.0\_._" />
+    <None Include="packages\System.Collections.Immutable.10.0.0\buildTransitive\netcoreapp2.0\System.Collections.Immutable.targets" />
+    <None Include="packages\System.Collections.Immutable.10.0.0\PACKAGE.md" />
+    <None Include="packages\System.Collections.Immutable.10.0.0\System.Collections.Immutable.10.0.0.nupkg" />
+    <None Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\.signature.p7s" />
+    <None Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\buildTransitive\net461\System.Diagnostics.DiagnosticSource.targets" />
+    <None Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\buildTransitive\net8.0\_._" />
+    <None Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\buildTransitive\netcoreapp2.0\System.Diagnostics.DiagnosticSource.targets" />
+    <None Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\System.Diagnostics.DiagnosticSource.10.0.0.nupkg" />
+    <None Include="packages\System.IO.Pipelines.10.0.0\.signature.p7s" />
+    <None Include="packages\System.IO.Pipelines.10.0.0\buildTransitive\net461\System.IO.Pipelines.targets" />
+    <None Include="packages\System.IO.Pipelines.10.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\System.IO.Pipelines.10.0.0\buildTransitive\net8.0\_._" />
+    <None Include="packages\System.IO.Pipelines.10.0.0\buildTransitive\netcoreapp2.0\System.IO.Pipelines.targets" />
+    <None Include="packages\System.IO.Pipelines.10.0.0\PACKAGE.md" />
+    <None Include="packages\System.IO.Pipelines.10.0.0\System.IO.Pipelines.10.0.0.nupkg" />
+    <None Include="packages\System.Management.10.0.0\.signature.p7s" />
+    <None Include="packages\System.Management.10.0.0\buildTransitive\net8.0\_._" />
+    <None Include="packages\System.Management.10.0.0\buildTransitive\netcoreapp2.0\System.Management.targets" />
+    <None Include="packages\System.Management.10.0.0\lib\net462\_._" />
+    <None Include="packages\System.Management.10.0.0\PACKAGE.md" />
+    <None Include="packages\System.Management.10.0.0\System.Management.10.0.0.nupkg" />
+    <None Include="packages\System.Memory.4.6.3\.signature.p7s" />
+    <None Include="packages\System.Memory.4.6.3\buildTransitive\net461\System.Memory.targets" />
+    <None Include="packages\System.Memory.4.6.3\buildTransitive\net462\_._" />
+    <None Include="packages\System.Memory.4.6.3\lib\netcoreapp2.1\_._" />
+    <None Include="packages\System.Memory.4.6.3\lib\netstandard2.1\_._" />
+    <None Include="packages\System.Memory.4.6.3\PACKAGE.md" />
+    <None Include="packages\System.Memory.4.6.3\System.Memory.4.6.3.nupkg" />
+    <None Include="packages\System.Numerics.Vectors.4.6.1\.signature.p7s" />
+    <None Include="packages\System.Numerics.Vectors.4.6.1\buildTransitive\net461\System.Numerics.Vectors.targets" />
+    <None Include="packages\System.Numerics.Vectors.4.6.1\buildTransitive\net462\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.6.1\lib\netcoreapp2.0\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.6.1\lib\netstandard2.1\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.6.1\PACKAGE.md" />
+    <None Include="packages\System.Numerics.Vectors.4.6.1\System.Numerics.Vectors.4.6.1.nupkg" />
+    <None Include="packages\System.Reflection.Metadata.10.0.0\.signature.p7s" />
+    <None Include="packages\System.Reflection.Metadata.10.0.0\buildTransitive\net461\System.Reflection.Metadata.targets" />
+    <None Include="packages\System.Reflection.Metadata.10.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\System.Reflection.Metadata.10.0.0\buildTransitive\net8.0\_._" />
+    <None Include="packages\System.Reflection.Metadata.10.0.0\buildTransitive\netcoreapp2.0\System.Reflection.Metadata.targets" />
+    <None Include="packages\System.Reflection.Metadata.10.0.0\PACKAGE.md" />
+    <None Include="packages\System.Reflection.Metadata.10.0.0\System.Reflection.Metadata.10.0.0.nupkg" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\.signature.p7s" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\buildTransitive\net461\System.Runtime.CompilerServices.Unsafe.targets" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\buildTransitive\net462\_._" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\buildTransitive\net6.0\_._" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\buildTransitive\netcoreapp2.0\System.Runtime.CompilerServices.Unsafe.targets" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net7.0\_._" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\PACKAGE.md" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\System.Runtime.CompilerServices.Unsafe.6.1.2.nupkg" />
+    <None Include="packages\System.Text.Encodings.Web.10.0.0\.signature.p7s" />
+    <None Include="packages\System.Text.Encodings.Web.10.0.0\buildTransitive\net461\System.Text.Encodings.Web.targets" />
+    <None Include="packages\System.Text.Encodings.Web.10.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\System.Text.Encodings.Web.10.0.0\buildTransitive\net8.0\_._" />
+    <None Include="packages\System.Text.Encodings.Web.10.0.0\buildTransitive\netcoreapp2.0\System.Text.Encodings.Web.targets" />
+    <None Include="packages\System.Text.Encodings.Web.10.0.0\PACKAGE.md" />
+    <None Include="packages\System.Text.Encodings.Web.10.0.0\System.Text.Encodings.Web.10.0.0.nupkg" />
+    <None Include="packages\System.Text.Json.10.0.0\.signature.p7s" />
+    <None Include="packages\System.Text.Json.10.0.0\buildTransitive\net461\System.Text.Json.targets" />
+    <None Include="packages\System.Text.Json.10.0.0\buildTransitive\net462\System.Text.Json.targets" />
+    <None Include="packages\System.Text.Json.10.0.0\buildTransitive\net8.0\System.Text.Json.targets" />
+    <None Include="packages\System.Text.Json.10.0.0\buildTransitive\netcoreapp2.0\System.Text.Json.targets" />
+    <None Include="packages\System.Text.Json.10.0.0\buildTransitive\netstandard2.0\System.Text.Json.targets" />
+    <None Include="packages\System.Text.Json.10.0.0\PACKAGE.md" />
+    <None Include="packages\System.Text.Json.10.0.0\System.Text.Json.10.0.0.nupkg" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.6.3\.signature.p7s" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.6.3\buildTransitive\net461\System.Threading.Tasks.Extensions.targets" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.6.3\buildTransitive\net462\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.6.3\lib\netcoreapp2.1\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.6.3\lib\netstandard2.1\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.6.3\PACKAGE.md" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.6.3\System.Threading.Tasks.Extensions.4.6.3.nupkg" />
+    <None Include="packages\System.ValueTuple.4.6.1\.signature.p7s" />
+    <None Include="packages\System.ValueTuple.4.6.1\buildTransitive\net461\System.ValueTuple.targets" />
+    <None Include="packages\System.ValueTuple.4.6.1\buildTransitive\net462\_._" />
+    <None Include="packages\System.ValueTuple.4.6.1\buildTransitive\net471\System.ValueTuple.targets" />
+    <None Include="packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" />
+    <None Include="packages\System.ValueTuple.4.6.1\lib\net471\_._" />
+    <None Include="packages\System.ValueTuple.4.6.1\lib\netcoreapp2.0\_._" />
+    <None Include="packages\System.ValueTuple.4.6.1\lib\netstandard2.0\_._" />
+    <None Include="packages\System.ValueTuple.4.6.1\PACKAGE.md" />
+    <None Include="packages\System.ValueTuple.4.6.1\System.ValueTuple.4.6.1.nupkg" />
+    <None Include="packages\Tesseract.5.2.0\.signature.p7s" />
+    <None Include="packages\Tesseract.5.2.0\build\Tesseract.targets" />
+    <None Include="packages\Tesseract.5.2.0\Tesseract.5.2.0.nupkg" />
+    <None Include="tessdata\eng.traineddata">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Recovery.UIAutomation.Framework\Recovery.UIAutomation.Framework.csproj">
+      <Project>{97cfd93c-53c3-4d22-807c-066fdf8c2fb1}</Project>
+      <Name>Recovery.UIAutomation.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestSuits\Bankruptcy\" />
+    <Folder Include="TestSuits\Registry\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages\FlaUI.Core.5.0.0\FlaUI.png" />
+    <Content Include="packages\FlaUI.Core.5.0.0\lib\net48\FlaUI.Core.dll" />
+    <Content Include="packages\FlaUI.Core.5.0.0\lib\net48\FlaUI.Core.xml" />
+    <Content Include="packages\FlaUI.Core.5.0.0\lib\net6.0-windows7.0\FlaUI.Core.dll" />
+    <Content Include="packages\FlaUI.Core.5.0.0\lib\net6.0-windows7.0\FlaUI.Core.xml" />
+    <Content Include="packages\FlaUI.Core.5.0.0\lib\net8.0-windows7.0\FlaUI.Core.dll" />
+    <Content Include="packages\FlaUI.Core.5.0.0\lib\net8.0-windows7.0\FlaUI.Core.xml" />
+    <Content Include="packages\FlaUI.Core.5.0.0\LICENSE.txt" />
+    <Content Include="packages\FlaUI.UIA2.5.0.0\FlaUI.png" />
+    <Content Include="packages\FlaUI.UIA2.5.0.0\lib\net48\FlaUI.UIA2.dll" />
+    <Content Include="packages\FlaUI.UIA2.5.0.0\lib\net48\FlaUI.UIA2.xml" />
+    <Content Include="packages\FlaUI.UIA2.5.0.0\lib\net6.0-windows7.0\FlaUI.UIA2.dll" />
+    <Content Include="packages\FlaUI.UIA2.5.0.0\lib\net6.0-windows7.0\FlaUI.UIA2.xml" />
+    <Content Include="packages\FlaUI.UIA2.5.0.0\lib\net8.0-windows7.0\FlaUI.UIA2.dll" />
+    <Content Include="packages\FlaUI.UIA2.5.0.0\lib\net8.0-windows7.0\FlaUI.UIA2.xml" />
+    <Content Include="packages\FlaUI.UIA2.5.0.0\LICENSE.txt" />
+    <Content Include="packages\FlaUI.UIA3.5.0.0\FlaUI.png" />
+    <Content Include="packages\FlaUI.UIA3.5.0.0\lib\net48\FlaUI.UIA3.dll" />
+    <Content Include="packages\FlaUI.UIA3.5.0.0\lib\net48\FlaUI.UIA3.xml" />
+    <Content Include="packages\FlaUI.UIA3.5.0.0\lib\net6.0-windows7.0\FlaUI.UIA3.dll" />
+    <Content Include="packages\FlaUI.UIA3.5.0.0\lib\net6.0-windows7.0\FlaUI.UIA3.xml" />
+    <Content Include="packages\FlaUI.UIA3.5.0.0\lib\net8.0-windows7.0\FlaUI.UIA3.dll" />
+    <Content Include="packages\FlaUI.UIA3.5.0.0\lib\net8.0-windows7.0\FlaUI.UIA3.xml" />
+    <Content Include="packages\FlaUI.UIA3.5.0.0\LICENSE.txt" />
+    <Content Include="packages\Interop.UIAutomationClient.10.19041.0\lib\net35\Interop.UIAutomationClient.dll" />
+    <Content Include="packages\Interop.UIAutomationClient.10.19041.0\lib\net40\Interop.UIAutomationClient.dll" />
+    <Content Include="packages\Interop.UIAutomationClient.10.19041.0\lib\net45\Interop.UIAutomationClient.dll" />
+    <Content Include="packages\Interop.UIAutomationClient.10.19041.0\lib\netcoreapp3.0\Interop.UIAutomationClient.dll" />
+    <Content Include="packages\Interop.UIAutomationClient.10.19041.0\lib\netstandard2.0\Interop.UIAutomationClient.dll" />
+    <Content Include="packages\Interop.UIAutomationClient.10.19041.0\LICENSE.txt" />
+    <Content Include="packages\Microsoft.ApplicationInsights.2.23.0\icon.png" />
+    <Content Include="packages\Microsoft.ApplicationInsights.2.23.0\lib\net452\Microsoft.ApplicationInsights.dll" />
+    <Content Include="packages\Microsoft.ApplicationInsights.2.23.0\lib\net452\Microsoft.ApplicationInsights.pdb" />
+    <Content Include="packages\Microsoft.ApplicationInsights.2.23.0\lib\net452\Microsoft.ApplicationInsights.xml" />
+    <Content Include="packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.dll" />
+    <Content Include="packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.pdb" />
+    <Content Include="packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.xml" />
+    <Content Include="packages\Microsoft.ApplicationInsights.2.23.0\lib\netstandard2.0\Microsoft.ApplicationInsights.dll" />
+    <Content Include="packages\Microsoft.ApplicationInsights.2.23.0\lib\netstandard2.0\Microsoft.ApplicationInsights.pdb" />
+    <Content Include="packages\Microsoft.ApplicationInsights.2.23.0\lib\netstandard2.0\Microsoft.ApplicationInsights.xml" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\Icon.png" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.xml" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.xml" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.xml" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.10.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\Icon.png" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\net10.0\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\net10.0\Microsoft.Extensions.DependencyModel.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\net462\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\net462\Microsoft.Extensions.DependencyModel.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\net8.0\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\net8.0\Microsoft.Extensions.DependencyModel.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\net9.0\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\net9.0\Microsoft.Extensions.DependencyModel.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyModel.xml" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\Microsoft.Extensions.DependencyModel.10.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\Icon.png" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\cs\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\de\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\es\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\fr\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\it\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\ja\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\ko\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\Microsoft.Testing.Extensions.Telemetry.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\Microsoft.Testing.Extensions.Telemetry.xml" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\pl\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\pt-BR\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\ru\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\tr\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\zh-Hans\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net8.0\zh-Hant\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\cs\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\de\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\es\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\fr\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\it\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\ja\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\ko\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\Microsoft.Testing.Extensions.Telemetry.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\Microsoft.Testing.Extensions.Telemetry.xml" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\pl\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\pt-BR\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\ru\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\tr\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\zh-Hans\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\net9.0\zh-Hant\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\cs\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\de\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\es\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\fr\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\it\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\ja\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\ko\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.xml" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\pl\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\pt-BR\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\ru\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\tr\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\zh-Hans\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\lib\netstandard2.0\zh-Hant\Microsoft.Testing.Extensions.Telemetry.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\Icon.png" />
+    <Content Include="packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\lib\net8.0\Microsoft.Testing.Extensions.TrxReport.Abstractions.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\lib\net8.0\Microsoft.Testing.Extensions.TrxReport.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\lib\net9.0\Microsoft.Testing.Extensions.TrxReport.Abstractions.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\lib\net9.0\Microsoft.Testing.Extensions.TrxReport.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.TrxReport.Abstractions.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.TrxReport.Abstractions.xml" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\Icon.png" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\cs\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\de\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\es\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\fr\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\it\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\ja\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\ko\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\Microsoft.Testing.Extensions.VSTestBridge.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\Microsoft.Testing.Extensions.VSTestBridge.xml" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\pl\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\pt-BR\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\ru\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\tr\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\zh-Hans\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net8.0\zh-Hant\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\cs\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\de\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\es\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\fr\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\it\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\ja\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\ko\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\Microsoft.Testing.Extensions.VSTestBridge.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\Microsoft.Testing.Extensions.VSTestBridge.xml" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\pl\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\pt-BR\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\ru\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\tr\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\zh-Hans\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\net9.0\zh-Hant\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\cs\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\de\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\es\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\fr\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\it\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\ja\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\ko\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.VSTestBridge.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.VSTestBridge.xml" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\pl\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\pt-BR\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\ru\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\tr\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\zh-Hans\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Extensions.VSTestBridge.2.0.2\lib\netstandard2.0\zh-Hant\Microsoft.Testing.Extensions.VSTestBridge.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\Icon.png" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\cs\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\de\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\es\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\fr\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\it\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\ja\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\ko\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\Microsoft.Testing.Platform.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\Microsoft.Testing.Platform.xml" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\pl\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\pt-BR\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\ru\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\tr\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\zh-Hans\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net8.0\zh-Hant\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\cs\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\de\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\es\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\fr\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\it\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\ja\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\ko\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\Microsoft.Testing.Platform.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\Microsoft.Testing.Platform.xml" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\pl\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\pt-BR\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\ru\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\tr\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\zh-Hans\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\net9.0\zh-Hant\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\cs\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\de\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\es\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\fr\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\it\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\ja\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\ko\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\Microsoft.Testing.Platform.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\Microsoft.Testing.Platform.xml" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\pl\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\pt-BR\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\ru\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\tr\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\zh-Hans\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.2.0.2\lib\netstandard2.0\zh-Hant\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\Icon.png" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\cs\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\de\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\es\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\fr\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\it\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\ja\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\ko\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\Microsoft.Testing.Extensions.MSBuild.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\Microsoft.Testing.Extensions.MSBuild.xml" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\pl\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\pt-BR\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\ru\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\tr\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\zh-Hans\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net8.0\zh-Hant\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\cs\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\de\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\es\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\fr\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\it\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\ja\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\ko\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\Microsoft.Testing.Extensions.MSBuild.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\Microsoft.Testing.Extensions.MSBuild.xml" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\pl\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\pt-BR\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\ru\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\tr\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\zh-Hans\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\net9.0\zh-Hant\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\cs\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\de\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\es\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\fr\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\it\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\ja\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\ko\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.MSBuild.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\Microsoft.Testing.Extensions.MSBuild.xml" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\pl\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\pt-BR\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\ru\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\tr\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\zh-Hans\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\lib\netstandard2.0\zh-Hant\Microsoft.Testing.Extensions.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\cs\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\cs\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\de\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\de\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\es\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\es\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\fr\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\fr\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\it\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\it\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\ja\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\ja\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\ko\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\ko\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\Microsoft.Testing.Platform.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\Microsoft.Testing.Platform.MSBuild.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\Microsoft.Testing.Platform.MSBuild.xml" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\Microsoft.Testing.Platform.xml" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\Microsoft.Win32.Registry.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\pl\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\pl\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\pt-BR\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\pt-BR\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\ru\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\ru\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\System.Security.AccessControl.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\System.Security.Principal.Windows.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\tr\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\tr\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\zh-Hans\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\zh-Hans\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\zh-Hant\Microsoft.Testing.Platform.MSBuild.resources.dll" />
+    <Content Include="packages\Microsoft.Testing.Platform.MSBuild.2.0.2\_MSBuildTasks\netstandard2.0\zh-Hant\Microsoft.Testing.Platform.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\Icon.png" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\cs\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\es\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\fr\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\it\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\ja\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\ko\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\Microsoft.TestPlatform.AdapterUtilities.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\pl\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\pt-BR\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\ru\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\tr\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\zh-Hans\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net462\zh-Hant\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\cs\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\es\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\fr\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\it\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\ja\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\ko\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\Microsoft.TestPlatform.AdapterUtilities.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\pl\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\pt-BR\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\ru\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\tr\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\zh-Hans\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net8.0\zh-Hant\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\cs\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\es\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\fr\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\it\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\ja\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\ko\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\Microsoft.TestPlatform.AdapterUtilities.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\pl\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\pt-BR\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\ru\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\tr\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\zh-Hans\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\net9.0\zh-Hant\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\cs\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\es\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\fr\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\it\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\ja\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\ko\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\Microsoft.TestPlatform.AdapterUtilities.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\pl\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\pt-BR\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\ru\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\tr\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\zh-Hans\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.AdapterUtilities.18.0.1\lib\netstandard2.0\zh-Hant\Microsoft.TestPlatform.AdapterUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\Icon.png" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\cs\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\de\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\es\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\es\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\fr\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\fr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\it\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\it\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\ja\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\ja\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\ko\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\ko\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\Microsoft.TestPlatform.CoreUtilities.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\Microsoft.TestPlatform.PlatformAbstractions.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\pl\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\pl\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\pt-BR\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\pt-BR\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\ru\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\ru\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\tr\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\tr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\zh-Hans\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\zh-Hans\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\zh-Hant\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net462\zh-Hant\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\cs\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\de\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\es\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\es\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\fr\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\fr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\it\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\it\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\ja\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\ja\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\ko\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\ko\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\Microsoft.TestPlatform.CoreUtilities.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\Microsoft.TestPlatform.PlatformAbstractions.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\pl\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\pl\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\pt-BR\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\pt-BR\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\ru\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\ru\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\tr\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\tr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\zh-Hans\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\zh-Hant\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\net8.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\cs\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\de\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\es\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\es\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\fr\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\fr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\it\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\it\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\ja\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\ja\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\ko\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\ko\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\Microsoft.TestPlatform.CoreUtilities.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\Microsoft.TestPlatform.PlatformAbstractions.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\pl\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\pl\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\pt-BR\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\pt-BR\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\ru\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\ru\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\tr\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\tr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\zh-Hans\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\zh-Hant\Microsoft.TestPlatform.CoreUtilities.resources.dll" />
+    <Content Include="packages\Microsoft.TestPlatform.ObjectModel.18.0.1\lib\netstandard2.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\cs\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\cs\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\de\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\de\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\es\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\es\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\fr\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\fr\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\it\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\it\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\ja\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\ja\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\ko\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\ko\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\MSTest.Analyzers.CodeFixes.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\MSTest.Analyzers.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\pl\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\pl\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\pt-BR\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\pt-BR\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\ru\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\ru\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\tr\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\tr\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\zh-Hans\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\zh-Hans\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\zh-Hant\MSTest.Analyzers.CodeFixes.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\cs\zh-Hant\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\cs\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\de\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\es\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\fr\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\it\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\ja\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\ko\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\MSTest.Analyzers.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\pl\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\pt-BR\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\ru\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\tr\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\zh-Hans\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\analyzers\dotnet\vb\zh-Hant\MSTest.Analyzers.resources.dll" />
+    <Content Include="packages\MSTest.Analyzers.4.0.2\Icon.png" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net462\Microsoft.TestPlatform.AdapterUtilities.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net462\MSTest.TestAdapter.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net462\MSTest.TestFramework.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net462\MSTest.TestFramework.Extensions.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net462\MSTestAdapter.PlatformServices.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net8.0\Microsoft.TestPlatform.AdapterUtilities.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net8.0\MSTest.TestAdapter.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net8.0\MSTestAdapter.PlatformServices.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net8.0\winui\MSTest.TestAdapter.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net8.0\winui\MSTestAdapter.PlatformServices.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net9.0\Microsoft.TestPlatform.AdapterUtilities.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net9.0\MSTest.TestAdapter.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net9.0\MSTestAdapter.PlatformServices.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net9.0\uwp\MSTest.TestAdapter.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\net9.0\uwp\MSTestAdapter.PlatformServices.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\uap10.0\Microsoft.TestPlatform.AdapterUtilities.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\uap10.0\MSTest.TestAdapter.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\uap10.0\MSTestAdapter.PlatformServices.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\cs\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\de\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\es\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\fr\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\it\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\ja\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\ko\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\pl\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\pt-BR\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\ru\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\tr\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\zh-Hans\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\buildTransitive\_localization\zh-Hant\MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="packages\MSTest.TestAdapter.4.0.2\Icon.png" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net8.0\MSTest.TestFramework.Extensions.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net8.0\MSTest.TestFramework.Extensions.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net8.0\winui\MSTest.TestFramework.Extensions.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net8.0\winui\MSTest.TestFramework.Extensions.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net9.0\MSTest.TestFramework.Extensions.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net9.0\MSTest.TestFramework.Extensions.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net9.0\uwp\MSTest.TestFramework.Extensions.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\buildTransitive\net9.0\uwp\MSTest.TestFramework.Extensions.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\Icon.png" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\cs\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\de\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\es\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\fr\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\it\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\ja\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\ko\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\MSTest.TestFramework.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\MSTest.TestFramework.Extensions.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\MSTest.TestFramework.Extensions.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\MSTest.TestFramework.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\pl\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\pt-BR\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\ru\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\tr\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\zh-Hans\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net462\zh-Hant\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\cs\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\de\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\es\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\fr\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\it\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\ja\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\ko\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\MSTest.TestFramework.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\MSTest.TestFramework.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\pl\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\pt-BR\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\ru\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\tr\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\zh-Hans\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net8.0\zh-Hant\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\cs\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\de\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\es\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\fr\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\it\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\ja\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\ko\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\MSTest.TestFramework.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\MSTest.TestFramework.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\pl\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\pt-BR\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\ru\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\tr\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\zh-Hans\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\net9.0\zh-Hant\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\cs\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\de\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\es\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\fr\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\it\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\ja\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\ko\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\MSTest.TestFramework.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\MSTest.TestFramework.Extensions.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\MSTest.TestFramework.Extensions.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\MSTest.TestFramework.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\pl\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\pt-BR\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\ru\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\tr\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\zh-Hans\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\netstandard2.0\zh-Hant\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\cs\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\de\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\es\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\fr\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\it\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\ja\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\ko\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\MSTest.TestFramework.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\MSTest.TestFramework.Extensions.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\MSTest.TestFramework.Extensions.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\MSTest.TestFramework.xml" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\pl\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\pt-BR\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\ru\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\tr\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\zh-Hans\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\MSTest.TestFramework.4.0.2\lib\uap10.0\zh-Hant\MSTest.TestFramework.resources.dll" />
+    <Content Include="packages\NUnit.3.13.3\lib\net45\nunit.framework.dll" />
+    <Content Include="packages\NUnit.3.13.3\lib\net45\nunit.framework.xml" />
+    <Content Include="packages\NUnit.3.13.3\LICENSE.txt" />
+    <Content Include="packages\NUnit.Console.3.21.0\images\nunit_256.png" />
+    <Content Include="packages\NUnit.Console.3.21.0\LICENSE.txt" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\images\nunit_256.png" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\LICENSE.txt" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\NOTICES.txt" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net10.0\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net10.0\nunit-agent.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net10.0\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net10.0\nunit.engine.api.xml" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net10.0\nunit.engine.core.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net10.0\testcentric.engine.metadata.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net462\nunit-agent-x86.exe" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net462\nunit-agent.exe" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net462\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net462\nunit.engine.api.xml" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net462\nunit.engine.core.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net462\testcentric.engine.metadata.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net8.0\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net8.0\nunit-agent.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net8.0\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net8.0\nunit.engine.api.xml" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net8.0\nunit.engine.core.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net8.0\testcentric.engine.metadata.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net9.0\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net9.0\nunit-agent.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net9.0\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net9.0\nunit.engine.api.xml" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net9.0\nunit.engine.core.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\agents\net9.0\testcentric.engine.metadata.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\nunit.engine.api.xml" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\nunit.engine.core.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\nunit.engine.dll" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\nunit3-console.exe" />
+    <Content Include="packages\NUnit.ConsoleRunner.3.21.0\tools\testcentric.engine.metadata.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitProjectLoader.3.8.0\LICENSE.txt" />
+    <Content Include="packages\NUnit.Extension.NUnitProjectLoader.3.8.0\nunit_256.png" />
+    <Content Include="packages\NUnit.Extension.NUnitProjectLoader.3.8.0\tools\net462\nunit-project-loader.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitProjectLoader.3.8.0\tools\net462\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitProjectLoader.3.8.0\tools\net6.0\nunit-project-loader.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitProjectLoader.3.8.0\tools\net6.0\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitV2Driver.3.9.0\CHANGES.txt" />
+    <Content Include="packages\NUnit.Extension.NUnitV2Driver.3.9.0\LICENSE.txt" />
+    <Content Include="packages\NUnit.Extension.NUnitV2Driver.3.9.0\tools\nunit.core.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitV2Driver.3.9.0\tools\nunit.core.interfaces.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitV2Driver.3.9.0\tools\nunit.v2.driver.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitV2ResultWriter.3.8.0\LICENSE.txt" />
+    <Content Include="packages\NUnit.Extension.NUnitV2ResultWriter.3.8.0\nunit_256.png" />
+    <Content Include="packages\NUnit.Extension.NUnitV2ResultWriter.3.8.0\tools\net462\nunit-v2-result-writer.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitV2ResultWriter.3.8.0\tools\net462\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitV2ResultWriter.3.8.0\tools\net6.0\nunit-v2-result-writer.dll" />
+    <Content Include="packages\NUnit.Extension.NUnitV2ResultWriter.3.8.0\tools\net6.0\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.Extension.TeamCityEventListener.1.0.10\CHANGES.txt" />
+    <Content Include="packages\NUnit.Extension.TeamCityEventListener.1.0.10\LICENSE.txt" />
+    <Content Include="packages\NUnit.Extension.TeamCityEventListener.1.0.10\tools\net20\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.Extension.TeamCityEventListener.1.0.10\tools\net20\teamcity-event-listener.dll" />
+    <Content Include="packages\NUnit.Extension.TeamCityEventListener.1.0.10\tools\netstandard2.0\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit.Extension.TeamCityEventListener.1.0.10\tools\netstandard2.0\teamcity-event-listener.dll" />
+    <Content Include="packages\NUnit.Extension.VSProjectLoader.3.9.0\CHANGES.txt" />
+    <Content Include="packages\NUnit.Extension.VSProjectLoader.3.9.0\LICENSE.txt" />
+    <Content Include="packages\NUnit.Extension.VSProjectLoader.3.9.0\tools\vs-project-loader.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net462\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net462\nunit.engine.core.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net462\nunit.engine.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net462\NUnit3.TestAdapter.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net462\NUnit3.TestAdapter.pdb" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net462\testcentric.engine.metadata.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net8.0\nunit.engine.api.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net8.0\nunit.engine.core.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net8.0\nunit.engine.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net8.0\NUnit3.TestAdapter.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net8.0\NUnit3.TestAdapter.pdb" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\build\net8.0\testcentric.engine.metadata.dll" />
+    <Content Include="packages\NUnit3TestAdapter.6.0.0\nunit_256.png" />
+    <Content Include="packages\System.Buffers.4.6.1\Icon.png" />
+    <Content Include="packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll" />
+    <Content Include="packages\System.Buffers.4.6.1\lib\net462\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.6.1\lib\netstandard2.0\System.Buffers.dll" />
+    <Content Include="packages\System.Buffers.4.6.1\lib\netstandard2.0\System.Buffers.xml" />
+    <Content Include="packages\System.CodeDom.10.0.0\Icon.png" />
+    <Content Include="packages\System.CodeDom.10.0.0\lib\net10.0\System.CodeDom.dll" />
+    <Content Include="packages\System.CodeDom.10.0.0\lib\net10.0\System.CodeDom.xml" />
+    <Content Include="packages\System.CodeDom.10.0.0\lib\net462\System.CodeDom.dll" />
+    <Content Include="packages\System.CodeDom.10.0.0\lib\net462\System.CodeDom.xml" />
+    <Content Include="packages\System.CodeDom.10.0.0\lib\net8.0\System.CodeDom.dll" />
+    <Content Include="packages\System.CodeDom.10.0.0\lib\net8.0\System.CodeDom.xml" />
+    <Content Include="packages\System.CodeDom.10.0.0\lib\net9.0\System.CodeDom.dll" />
+    <Content Include="packages\System.CodeDom.10.0.0\lib\net9.0\System.CodeDom.xml" />
+    <Content Include="packages\System.CodeDom.10.0.0\lib\netstandard2.0\System.CodeDom.dll" />
+    <Content Include="packages\System.CodeDom.10.0.0\lib\netstandard2.0\System.CodeDom.xml" />
+    <Content Include="packages\System.CodeDom.10.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.CodeDom.10.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\Icon.png" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\lib\net10.0\System.Collections.Immutable.dll" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\lib\net10.0\System.Collections.Immutable.xml" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\lib\net462\System.Collections.Immutable.dll" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\lib\net462\System.Collections.Immutable.xml" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\lib\net8.0\System.Collections.Immutable.dll" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\lib\net8.0\System.Collections.Immutable.xml" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\lib\net9.0\System.Collections.Immutable.dll" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\lib\net9.0\System.Collections.Immutable.xml" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\lib\netstandard2.0\System.Collections.Immutable.dll" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\lib\netstandard2.0\System.Collections.Immutable.xml" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Collections.Immutable.10.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\Icon.png" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\net10.0\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\net10.0\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\net462\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\net8.0\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\net8.0\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\net9.0\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\net9.0\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\netstandard2.0\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\lib\netstandard2.0\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Diagnostics.DiagnosticSource.10.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\Icon.png" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\lib\net10.0\System.IO.Pipelines.dll" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\lib\net10.0\System.IO.Pipelines.xml" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\lib\net462\System.IO.Pipelines.dll" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\lib\net462\System.IO.Pipelines.xml" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\lib\net8.0\System.IO.Pipelines.dll" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\lib\net8.0\System.IO.Pipelines.xml" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\lib\net9.0\System.IO.Pipelines.dll" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\lib\net9.0\System.IO.Pipelines.xml" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\lib\netstandard2.0\System.IO.Pipelines.dll" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\lib\netstandard2.0\System.IO.Pipelines.xml" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.IO.Pipelines.10.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Management.10.0.0\Icon.png" />
+    <Content Include="packages\System.Management.10.0.0\lib\net10.0\System.Management.dll" />
+    <Content Include="packages\System.Management.10.0.0\lib\net10.0\System.Management.xml" />
+    <Content Include="packages\System.Management.10.0.0\lib\net8.0\System.Management.dll" />
+    <Content Include="packages\System.Management.10.0.0\lib\net8.0\System.Management.xml" />
+    <Content Include="packages\System.Management.10.0.0\lib\net9.0\System.Management.dll" />
+    <Content Include="packages\System.Management.10.0.0\lib\net9.0\System.Management.xml" />
+    <Content Include="packages\System.Management.10.0.0\lib\netstandard2.0\System.Management.dll" />
+    <Content Include="packages\System.Management.10.0.0\lib\netstandard2.0\System.Management.xml" />
+    <Content Include="packages\System.Management.10.0.0\runtimes\win\lib\net10.0\System.Management.dll" />
+    <Content Include="packages\System.Management.10.0.0\runtimes\win\lib\net10.0\System.Management.xml" />
+    <Content Include="packages\System.Management.10.0.0\runtimes\win\lib\net8.0\System.Management.dll" />
+    <Content Include="packages\System.Management.10.0.0\runtimes\win\lib\net8.0\System.Management.xml" />
+    <Content Include="packages\System.Management.10.0.0\runtimes\win\lib\net9.0\System.Management.dll" />
+    <Content Include="packages\System.Management.10.0.0\runtimes\win\lib\net9.0\System.Management.xml" />
+    <Content Include="packages\System.Management.10.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Management.10.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Memory.4.6.3\Icon.png" />
+    <Content Include="packages\System.Memory.4.6.3\lib\net462\System.Memory.dll" />
+    <Content Include="packages\System.Memory.4.6.3\lib\net462\System.Memory.xml" />
+    <Content Include="packages\System.Memory.4.6.3\lib\netstandard2.0\System.Memory.dll" />
+    <Content Include="packages\System.Memory.4.6.3\lib\netstandard2.0\System.Memory.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.6.1\Icon.png" />
+    <Content Include="packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll" />
+    <Content Include="packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.6.1\lib\netstandard2.0\System.Numerics.Vectors.dll" />
+    <Content Include="packages\System.Numerics.Vectors.4.6.1\lib\netstandard2.0\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\Icon.png" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\lib\net10.0\System.Reflection.Metadata.dll" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\lib\net10.0\System.Reflection.Metadata.xml" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\lib\net462\System.Reflection.Metadata.dll" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\lib\net462\System.Reflection.Metadata.xml" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\lib\net8.0\System.Reflection.Metadata.dll" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\lib\net8.0\System.Reflection.Metadata.xml" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\lib\net9.0\System.Reflection.Metadata.dll" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\lib\net9.0\System.Reflection.Metadata.xml" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\lib\netstandard2.0\System.Reflection.Metadata.dll" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\lib\netstandard2.0\System.Reflection.Metadata.xml" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Reflection.Metadata.10.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\Icon.png" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net6.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net6.0\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\Icon.png" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\lib\net10.0\System.Text.Encodings.Web.dll" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\lib\net10.0\System.Text.Encodings.Web.xml" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\lib\net462\System.Text.Encodings.Web.dll" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\lib\net462\System.Text.Encodings.Web.xml" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\lib\net8.0\System.Text.Encodings.Web.dll" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\lib\net8.0\System.Text.Encodings.Web.xml" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\lib\net9.0\System.Text.Encodings.Web.dll" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\lib\net9.0\System.Text.Encodings.Web.xml" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\lib\netstandard2.0\System.Text.Encodings.Web.dll" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\lib\netstandard2.0\System.Text.Encodings.Web.xml" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\runtimes\browser\lib\net10.0\System.Text.Encodings.Web.dll" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\runtimes\browser\lib\net10.0\System.Text.Encodings.Web.xml" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.xml" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\runtimes\wasi\lib\net10.0\System.Text.Encodings.Web.dll" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\runtimes\wasi\lib\net10.0\System.Text.Encodings.Web.xml" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\runtimes\win\lib\net9.0\System.Text.Encodings.Web.dll" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\runtimes\win\lib\net9.0\System.Text.Encodings.Web.xml" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Text.Encodings.Web.10.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\de\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\es\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\it\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\ru\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\System.Text.Json.SourceGeneration.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\tr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\zh-Hans\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn3.11\cs\zh-Hant\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\de\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\es\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\it\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\ru\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\tr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hans\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hant\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\de\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\es\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\it\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\ru\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\System.Text.Json.SourceGeneration.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\tr\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\zh-Hans\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\analyzers\dotnet\roslyn4.4\cs\zh-Hant\System.Text.Json.SourceGeneration.resources.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\Icon.png" />
+    <Content Include="packages\System.Text.Json.10.0.0\lib\net10.0\System.Text.Json.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\lib\net10.0\System.Text.Json.xml" />
+    <Content Include="packages\System.Text.Json.10.0.0\lib\net462\System.Text.Json.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\lib\net462\System.Text.Json.xml" />
+    <Content Include="packages\System.Text.Json.10.0.0\lib\net8.0\System.Text.Json.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\lib\net8.0\System.Text.Json.xml" />
+    <Content Include="packages\System.Text.Json.10.0.0\lib\net9.0\System.Text.Json.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\lib\net9.0\System.Text.Json.xml" />
+    <Content Include="packages\System.Text.Json.10.0.0\lib\netstandard2.0\System.Text.Json.dll" />
+    <Content Include="packages\System.Text.Json.10.0.0\lib\netstandard2.0\System.Text.Json.xml" />
+    <Content Include="packages\System.Text.Json.10.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Content Include="packages\System.Text.Json.10.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Threading.Tasks.Extensions.4.6.3\Icon.png" />
+    <Content Include="packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.xml" />
+    <Content Include="packages\System.Threading.Tasks.Extensions.4.6.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="packages\System.Threading.Tasks.Extensions.4.6.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.xml" />
+    <Content Include="packages\System.ValueTuple.4.6.1\Icon.png" />
+    <Content Include="packages\System.ValueTuple.4.6.1\lib\net462\System.ValueTuple.dll" />
+    <Content Include="packages\System.ValueTuple.4.6.1\lib\net462\System.ValueTuple.xml" />
+    <Content Include="packages\System.ValueTuple.4.6.1\lib\net47\System.ValueTuple.dll" />
+    <Content Include="packages\System.ValueTuple.4.6.1\lib\net47\System.ValueTuple.xml" />
+    <Content Include="packages\Tesseract.5.2.0\lib\net47\Tesseract.dll" />
+    <Content Include="packages\Tesseract.5.2.0\lib\net48\Tesseract.dll" />
+    <Content Include="packages\Tesseract.5.2.0\lib\netstandard2.0\Tesseract.dll" />
+    <Content Include="packages\Tesseract.5.2.0\lib\netstandard2.0\Tesseract.xml" />
+    <Content Include="packages\Tesseract.5.2.0\x64\leptonica-1.82.0.dll" />
+    <Content Include="packages\Tesseract.5.2.0\x64\tesseract50.dll" />
+    <Content Include="packages\Tesseract.5.2.0\x86\leptonica-1.82.0.dll" />
+    <Content Include="packages\Tesseract.5.2.0\x86\tesseract50.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\NUnit.4.4.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\NUnit.4.4.0\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.2.0.2\build\netstandard2.0\Microsoft.Testing.Platform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.2.0.2\build\netstandard2.0\Microsoft.Testing.Platform.props'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.2.0.2\build\netstandard2.0\Microsoft.Testing.Platform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.2.0.2\build\netstandard2.0\Microsoft.Testing.Platform.targets'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.MSBuild.2.0.2\build\Microsoft.Testing.Platform.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.MSBuild.2.0.2\build\Microsoft.Testing.Platform.MSBuild.props'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.MSBuild.2.0.2\build\Microsoft.Testing.Platform.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.MSBuild.2.0.2\build\Microsoft.Testing.Platform.MSBuild.targets'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Extensions.Telemetry.2.0.2\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.CodeCoverage.18.0.1\build\netstandard2.0\Microsoft.CodeCoverage.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Microsoft.CodeCoverage.18.0.1\build\netstandard2.0\Microsoft.CodeCoverage.props'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.CodeCoverage.18.0.1\build\netstandard2.0\Microsoft.CodeCoverage.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Microsoft.CodeCoverage.18.0.1\build\netstandard2.0\Microsoft.CodeCoverage.targets'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.NET.Test.Sdk.18.0.1\build\net462\Microsoft.NET.Test.Sdk.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Microsoft.NET.Test.Sdk.18.0.1\build\net462\Microsoft.NET.Test.Sdk.props'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.NET.Test.Sdk.18.0.1\build\net462\Microsoft.NET.Test.Sdk.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Microsoft.NET.Test.Sdk.18.0.1\build\net462\Microsoft.NET.Test.Sdk.targets'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\NUnit3TestAdapter.6.1.0\build\net462\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\NUnit3TestAdapter.6.1.0\build\net462\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\NUnit3TestAdapter.6.1.0\build\net462\NUnit3TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\NUnit3TestAdapter.6.1.0\build\net462\NUnit3TestAdapter.targets'))" />
+    <Error Condition="!Exists('..\Recovery.UIAutomation.Framework\packages\Tesseract.5.2.0\build\Tesseract.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Recovery.UIAutomation.Framework\packages\Tesseract.5.2.0\build\Tesseract.targets'))" />
+  </Target>
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.2.0.2\build\netstandard2.0\Microsoft.Testing.Platform.targets" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.2.0.2\build\netstandard2.0\Microsoft.Testing.Platform.targets')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.MSBuild.2.0.2\build\Microsoft.Testing.Platform.MSBuild.targets" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.Testing.Platform.MSBuild.2.0.2\build\Microsoft.Testing.Platform.MSBuild.targets')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Microsoft.CodeCoverage.18.0.1\build\netstandard2.0\Microsoft.CodeCoverage.targets" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.CodeCoverage.18.0.1\build\netstandard2.0\Microsoft.CodeCoverage.targets')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Microsoft.NET.Test.Sdk.18.0.1\build\net462\Microsoft.NET.Test.Sdk.targets" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Microsoft.NET.Test.Sdk.18.0.1\build\net462\Microsoft.NET.Test.Sdk.targets')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Interop.UIAutomationClient.10.19041.0\build\Interop.UIAutomationClient.targets')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\NUnit3TestAdapter.6.1.0\build\net462\NUnit3TestAdapter.targets" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\NUnit3TestAdapter.6.1.0\build\net462\NUnit3TestAdapter.targets')" />
+  <Import Project="..\Recovery.UIAutomation.Framework\packages\Tesseract.5.2.0\build\Tesseract.targets" Condition="Exists('..\Recovery.UIAutomation.Framework\packages\Tesseract.5.2.0\build\Tesseract.targets')" />
+</Project>

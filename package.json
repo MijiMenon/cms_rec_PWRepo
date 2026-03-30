@@ -34,11 +34,14 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.40.0",
+    "@types/mssql": "^9.1.9",
     "@types/node": "^20.10.0",
+    "mssql": "^12.2.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.0"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
     "@faker-js/faker": "^10.3.0",
     "allure-playwright": "^2.15.0",
     "csv-parse": "^5.5.0",

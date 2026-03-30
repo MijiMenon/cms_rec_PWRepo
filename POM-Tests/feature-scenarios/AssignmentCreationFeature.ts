@@ -36,6 +36,9 @@ export class AssignmentCreationFeature extends BaseFeature {
       this.logStep('Submitting assignment');
       await this.assignmentPage.submitAssignment();
 
+      this.logStep('Marking assignment as complete');
+      await this.assignmentPage.markAssignmentAsComplete();
+
       logger.info('Assignment created successfully');
 
       this.logFeatureEnd('Assignment Creation Scenario');

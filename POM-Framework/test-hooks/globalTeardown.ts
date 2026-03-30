@@ -1,6 +1,7 @@
 import { FullConfig } from '@playwright/test';
 import { logger } from '../utilities/logger';
 import { DataProvider } from '../utilities/data-readers/dataProvider';
+import { DatabaseHelper } from '../database/DatabaseHelper';
 import { execSync } from 'child_process';
 import path from 'path';
 import fs from 'fs';
@@ -14,6 +15,9 @@ async function globalTeardown(config: FullConfig) {
   logger.info('='.repeat(80));
 
   try {
+    // Close database connections
+    await closeDatabaseConnection();
+
     // Generate Allure report from results
     generateAllureReport();
 
@@ -34,6 +38,20 @@ async function globalTeardown(config: FullConfig) {
     logger.info('='.repeat(80));
     logger.info('GLOBAL TEARDOWN - END');
     logger.info('='.repeat(80));
+  }
+}
+
+/**
+ * Close database connection
+ */
+async function closeDatabaseConnection(): Promise<void> {
+  logger.info('Closing database connection...');
+
+  try {
+    await DatabaseHelper.close();
+    logger.info('✓ Database connection closed successfully');
+  } catch (error: any) {
+    logger.error(`Failed to close database connection: ${error.message}`);
   }
 }
 

@@ -1,6 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './base/BasePage';
 import { logger } from '../../POM-Framework/utilities/logger';
+import { Session } from 'inspector/promises';
 
 /**
  * LoginPage - Page Object for Login functionality
@@ -59,6 +60,7 @@ export class LoginPage extends BasePage {
   async clickLoginButton(): Promise<void> {
     logger.info('Clicking login button');
     await this.click(this.loginButton);
+ 
   }
 
   /**
@@ -67,14 +69,12 @@ export class LoginPage extends BasePage {
   async login(username: string, password: string): Promise<void> {
     logger.info(`Performing login for user: ${username}`);
     await this.enterUsername(username);
-    await this.enterPassword(password);
-
+    await this.enterPassword(password);    
     // Click and wait for navigation
     await Promise.all([
       this.page.waitForLoadState('networkidle', { timeout: 30000 }),
-      this.clickLoginButton()
+      this.clickLoginButton()     
     ]);
-
     logger.info('Login button clicked, waiting for navigation to complete');
   }
 

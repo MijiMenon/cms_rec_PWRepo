@@ -1,6 +1,6 @@
 # Data-Driven Test Automation Framework
 
-A comprehensive test automation framework built with TypeScript, Playwright, and the Page Object Model (POM) design pattern. Features data-driven testing, parallel execution, HTML reporting, and CI/CD integration.
+A comprehensive test automation framework built with TypeScript, Playwright, and the Page Object Model (POM) design pattern. Features data-driven testing, parallel execution, database integration, HTML reporting, and CI/CD integration.
 
 ## 🏗️ Architecture
 
@@ -14,57 +14,63 @@ Test Layer → Feature Layer → Page Layer
 - **Feature Layer**: Encapsulates business scenarios and workflows
 - **Page Layer**: Contains page objects representing UI elements and basic actions
 
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed architecture documentation.
+
 ## 📁 Project Structure
 
 ```
 automation-framework/
-├── src/
-│   ├── pages/              # Page Objects (UI elements & actions)
-│   │   ├── base/
-│   │   │   └── BasePage.ts
-│   │   ├── LoginPage.ts
-│   │   └── HomePage.ts
-│   ├── features/           # Feature/Scenario classes (business logic)
-│   │   ├── base/
-│   │   │   └── BaseFeature.ts
-│   │   └── LoginFeature.ts
-│   ├── components/         # Reusable UI components
-│   │   ├── base/
-│   │   │   └── BaseComponent.ts
-│   │   └── HeaderComponent.ts
-│   ├── tests/              # Test specifications
-│   │   ├── login.spec.ts
-│   │   └── smoke.spec.ts
-│   ├── fixtures/           # Playwright fixtures for DI
-│   │   └── index.ts
-│   ├── utils/              # Utilities
-│   │   ├── dataReaders/
-│   │   │   ├── csvReader.ts
-│   │   │   ├── excelReader.ts
-│   │   │   └── dataProvider.ts
+│
+├── 📄 ROOT (Configuration Files)
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── playwright.config.ts
+│   ├── .env / .env.example
+│   └── .github/workflows/         # CI/CD pipelines
+│       └── test.yml
+│
+├── 🛠️  POM-Framework/             # Reusable Framework Components
+│   ├── page-objects/              # Base page classes
+│   │   └── base/BasePage.ts
+│   ├── feature-scenarios/         # Base feature classes
+│   │   └── base/BaseFeature.ts
+│   ├── reusable-components/       # UI components
+│   │   └── base/BaseComponent.ts
+│   ├── utilities/                 # Helper functions
+│   │   ├── data-readers/          # CSV/Excel readers
+│   │   ├── ConfigReader.ts
 │   │   ├── logger.ts
-│   │   ├── screenshotHelper.ts
-│   │   └── helpers.ts
-│   ├── config/             # Environment configurations
-│   │   └── environments.ts
-│   ├── types/              # TypeScript type definitions
-│   │   └── index.ts
-│   └── hooks/              # Global setup/teardown
-│       ├── globalSetup.ts
-│       └── globalTeardown.ts
-├── data/                   # Test data files
-│   ├── csv/
-│   │   └── loginData.csv
-│   └── excel/
-│       ├── testData.xlsx
-│       └── createTestData.ts
-├── .github/workflows/      # CI/CD pipelines
-│   └── test.yml
-├── reports/                # Test reports
-├── test-results/           # Test artifacts
-├── playwright.config.ts    # Playwright configuration
-├── tsconfig.json          # TypeScript configuration
-└── package.json           # Dependencies and scripts
+│   │   └── screenshotHelper.ts
+│   ├── database/                  # Database integration
+│   │   ├── DatabaseHelper.ts
+│   │   └── queries/               # Query classes
+│   ├── bridge/                    # Bridge API integration
+│   ├── interfaces/                # TypeScript types
+│   ├── test-hooks/                # Global setup/teardown
+│   └── test-fixtures/             # Playwright fixtures
+│
+└── 🧪 POM-Tests/                  # Test-Specific Components
+    ├── test-suites/               # Test specifications
+    │   ├── login.spec.ts
+    │   ├── AssignmentCreation.spec.ts
+    │   ├── database-examples/     # Database test examples
+    │   └── bridge/                # Bridge API test examples
+    ├── page-objects/              # Application page objects
+    │   ├── base/BasePage.ts
+    │   ├── LoginPage.ts
+    │   └── AssignmentPage.ts
+    ├── feature-scenarios/         # Business scenarios
+    │   ├── base/BaseFeature.ts
+    │   └── LoginFeature.ts
+    ├── test.config.ts             # Environment configs
+    ├── test-data/                 # Test data files
+    │   ├── csv/
+    │   ├── excel/
+    │   └── json/
+    ├── test-results/              # Generated artifacts
+    ├── test-reports/              # Generated reports
+    ├── screenshots/               # Failure screenshots
+    └── logs/                      # Execution logs
 ```
 
 ## 🚀 Quick Start
@@ -97,15 +103,25 @@ automation-framework/
    ```
    Edit `.env` with your configuration:
    ```env
-   BASE_URL=https://your-app-url.com
-   TEST_ENV=staging
-   TEST_USERNAME=your-username
-   TEST_PASSWORD=your-password
+   # Environment Configuration
+   TEST_ENV=QA
+   ENV_PREFIX=qa2
+   SUBDOMAIN=repohighway
+
+   # Credentials (Optional - uses test.config.ts by default)
+   AUTH_CREDENTIAL_KEY=RBCClientUser
+
+   # Database Configuration (Optional)
+   DB_SERVER=mssrecdbvwqa01.dhltd.corp
+   DB_PORT=1433
+   DB_DATABASE=YourDatabaseName
+   DB_USER=Connector
+   DB_PASSWORD=Re7Kp2M!
    ```
 
-5. **Generate Excel test data**
+5. **Generate Excel test data** (Optional)
    ```bash
-   npx ts-node data/excel/createTestData.ts
+   npx ts-node POM-Tests/test-data/excel/createTestData.ts
    ```
 
 6. **Run tests**
@@ -147,7 +163,7 @@ npm run test:regression   # Regression tests only
 
 ```bash
 # Run specific test file
-npx playwright test src/tests/login.spec.ts
+npx playwright test POM-Tests/test-suites/login.spec.ts
 
 # Run tests matching pattern
 npx playwright test --grep "login"
@@ -187,12 +203,12 @@ npm run allure:serve
 
 ### Report Locations
 
-- **HTML Report**: `reports/html/index.html`
-- **JSON Report**: `reports/json/results.json`
-- **JUnit Report**: `reports/junit/results.xml`
-- **Allure Results**: `allure-results/`
-- **Screenshots**: `screenshots/`
-- **Logs**: `logs/test-execution.log`
+- **HTML Report**: `POM-Tests/test-reports/html/index.html`
+- **JSON Report**: `POM-Tests/test-reports/json/results.json`
+- **JUnit Report**: `POM-Tests/test-reports/junit/results.xml`
+- **Allure Results**: `POM-Tests/allure-results/`
+- **Screenshots**: `POM-Tests/screenshots/`
+- **Logs**: `POM-Tests/logs/test-execution.log`
 
 ## 📝 Writing Tests
 
@@ -201,9 +217,11 @@ npm run allure:serve
 #### 1. Page Object Layer
 
 ```typescript
-// src/pages/LoginPage.ts
+// POM-Tests/page-objects/LoginPage.ts
+import { BasePage } from '../../POM-Framework/page-objects/base/BasePage';
+
 export class LoginPage extends BasePage {
-  protected pageUrl: string = '/login';
+  protected pageUrl: string = '/go.aspx';
 
   async login(username: string, password: string): Promise<void> {
     await this.fill(this.usernameInput, username);
@@ -216,10 +234,12 @@ export class LoginPage extends BasePage {
 #### 2. Feature Layer
 
 ```typescript
-// src/features/LoginFeature.ts
+// POM-Tests/feature-scenarios/LoginFeature.ts
+import { BaseFeature } from '../../POM-Framework/feature-scenarios/base/BaseFeature';
+import { LoginPage } from '../page-objects/LoginPage';
+
 export class LoginFeature extends BaseFeature {
   private loginPage: LoginPage;
-  private homePage: HomePage;
 
   async performSuccessfulLogin(username: string, password: string): Promise<void> {
     this.logStep('Navigate to login page');
@@ -229,7 +249,7 @@ export class LoginFeature extends BaseFeature {
     await this.loginPage.login(username, password);
 
     this.logStep('Verify home page loaded');
-    await this.homePage.verifyHomePageLoaded();
+    await this.page.waitForLoadState('networkidle');
   }
 }
 ```
@@ -237,15 +257,14 @@ export class LoginFeature extends BaseFeature {
 #### 3. Test Layer
 
 ```typescript
-// src/tests/login.spec.ts
-import { test, expect } from '../fixtures';
+// POM-Tests/test-suites/login.spec.ts
+import { test, expect } from '../../POM-Framework/test-fixtures';
 
-test('Login with CSV data', async ({ loginFeature, dataProvider }) => {
-  const testData = await dataProvider.getCsvData('loginData.csv');
-
-  for (const data of testData) {
-    await loginFeature.performSuccessfulLogin(data.username, data.password);
-  }
+test('Login with credentials', async ({ loginFeature, credentials }) => {
+  await loginFeature.performSuccessfulLogin(
+    credentials.username,
+    credentials.password
+  );
 });
 ```
 
@@ -290,38 +309,48 @@ Edit `playwright.config.ts`:
 
 ```typescript
 export default defineConfig({
-  testDir: './src/tests',
+  testDir: './POM-Tests/test-suites',
   fullyParallel: true,
   workers: 4,
   retries: 2,
   use: {
-    baseURL: 'https://your-app.com',
+    baseURL: process.env.BASE_URL,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+  ],
 });
 ```
 
 ### Environment Configuration
 
-Edit `src/config/environments.ts`:
+The framework uses `ConfigReader` for centralized configuration management:
 
 ```typescript
-export const environments = {
-  dev: {
-    baseUrl: 'https://dev.example.com',
-    apiUrl: 'https://api-dev.example.com',
-  },
-  // Add more environments
-};
+import { ConfigReader } from './POM-Framework/utilities/ConfigReader';
+
+// Get environment-specific URLs
+const baseUrl = ConfigReader.getBaseUrl('QA');
+
+// Get credentials
+const creds = ConfigReader.getCredentials('RBCClientUser');
+
+// Get database config
+const dbConfig = ConfigReader.getDatabaseConfig();
 ```
+
+Edit `POM-Tests/test.config.ts` to add environments and credentials.
 
 ## 🛠️ Utilities
 
 ### Logger
 
 ```typescript
-import { logger, logTestStart, logTestEnd, logStep } from '../utils/logger';
+import { logger, logTestStart, logTestEnd, logStep } from './POM-Framework/utilities/logger';
 
 logTestStart('My Test');
 logStep('Step 1: Navigate to page');
@@ -332,7 +361,7 @@ logTestEnd('My Test', 'PASSED');
 ### Screenshot Helper
 
 ```typescript
-import { ScreenshotHelper } from '../utils/screenshotHelper';
+import { ScreenshotHelper } from './POM-Framework/utilities/screenshotHelper';
 
 // Capture screenshot
 await ScreenshotHelper.capture(page, 'screenshot-name');
@@ -344,59 +373,85 @@ await ScreenshotHelper.captureOnFailure(page, testName);
 await ScreenshotHelper.captureElement(page, '#element-id', 'element-name');
 ```
 
-### Helpers
+### ConfigReader
 
 ```typescript
-import { Helpers } from '../utils/helpers';
+import { ConfigReader } from './POM-Framework/utilities/ConfigReader';
 
-// Generate random data
-const email = Helpers.generateRandomEmail();
-const phone = Helpers.generateRandomPhone();
-const randomStr = Helpers.generateRandomString(10);
+// Get base URL for environment
+const baseUrl = ConfigReader.getBaseUrl('QA');
 
-// Retry with exponential backoff
-await Helpers.retry(async () => {
-  // Your flaky operation
-}, 3, 1000);
+// Get credentials
+const creds = ConfigReader.getCredentials('RBCClientUser');
 
-// Wait for condition
-await Helpers.waitForCondition(() => isReady, 10000);
+// Get database configuration
+const dbConfig = ConfigReader.getDatabaseConfig();
+
+// Get domain paths
+const loginPath = ConfigReader.getDomainPath('login');
 ```
+
+### Database Integration
+
+```typescript
+import { AssignmentQueries, UserQueries } from './POM-Framework/database/queries';
+
+// Query assignments
+const assignment = await AssignmentQueries.getAssignmentByContractNumber('BNS_143147');
+
+// Query users
+const user = await UserQueries.getUserByUsername('john.doe');
+
+// Custom queries
+import { DatabaseHelper } from './POM-Framework/database/DatabaseHelper';
+const results = await DatabaseHelper.executeQuery('SELECT * FROM...');
+```
+
+See [FEATURES.md](FEATURES.md) for advanced features including credentials and database usage.
 
 ## 🔄 CI/CD Integration
 
 ### GitHub Actions
 
-The framework includes a comprehensive GitHub Actions workflow:
+The framework includes a comprehensive GitHub Actions workflow that runs on Chromium with 4 parallel workers:
 
 ```yaml
 # .github/workflows/test.yml
 - Runs tests on push/PR
-- Matrix strategy for parallel execution
-- Multiple browser support
+- Parallel execution with 4 shards (Chromium only)
+- Smoke tests for quick validation
 - Artifact uploads (reports, screenshots)
-- Allure report generation
+- Allure report generation and GitHub Pages deployment
 - Optional Slack notifications
 ```
 
 ### Setup GitHub Secrets
 
-Add these secrets to your GitHub repository:
+Add these secrets to your GitHub repository (Settings → Secrets → Actions):
 
-- `BASE_URL`: Application URL
-- `TEST_USERNAME`: Test user username
-- `TEST_PASSWORD`: Test user password
-- `SLACK_WEBHOOK_URL` (optional): For notifications
+- `ENV_PREFIX`: Environment prefix (e.g., qa2)
+- `AUTH_CREDENTIAL_KEY`: Credential key from test.config.ts (e.g., RBCClientUser)
+- `SLACK_WEBHOOK_URL` (optional): For Slack notifications
+
+### GitHub Pages Setup
+
+1. Enable GitHub Pages (Settings → Pages)
+2. Source: Deploy from branch `gh-pages`
+3. Grant workflow permissions (Settings → Actions → General → Read and write permissions)
 
 ### Manual Workflow Trigger
 
-Go to Actions → Playwright Tests → Run workflow
+1. Go to Actions → Playwright Tests → Run workflow
+2. Select branch and environment
+3. View Allure reports at: `https://{username}.github.io/{repo}/reports/{run-number}/`
 
-Select environment and browser options.
+See [CI_CD_SETUP.md](CI_CD_SETUP.md) for complete CI/CD configuration guide.
 
 ## 📦 Test Data Management
 
 ### CSV Format
+
+Create CSV files in `POM-Tests/test-data/csv/`:
 
 ```csv
 testCase,username,password,expectedResult,errorMessage
@@ -406,12 +461,39 @@ Invalid Login,admin@example.com,wrong,failure,Invalid credentials
 
 ### Excel Format
 
-Create multi-sheet Excel files:
+Create Excel files with multiple sheets:
 ```bash
-npx ts-node data/excel/createTestData.ts
+npx ts-node POM-Tests/test-data/excel/createTestData.ts
 ```
 
 This generates `testData.xlsx` with multiple sheets (Login, Users, etc.)
+
+### JSON Format
+
+Create JSON files in `POM-Tests/test-data/json/`:
+
+```json
+{
+  "ContractNumber": "BNS_143147",
+  "Priority": "CRITICAL",
+  "Description": "Test Assignment"
+}
+```
+
+### Using Test Data
+
+```typescript
+import { DataProvider } from './POM-Framework/utilities/data-readers/dataProvider';
+
+// CSV data
+const csvData = await dataProvider.getCsvData('loginData.csv');
+
+// Excel data
+const excelData = await dataProvider.getExcelData('testData.xlsx', 'Login');
+
+// JSON data
+const jsonData = await DataProvider.getTestDataFromJson('assignmentData.json');
+```
 
 ## 🎯 Best Practices
 
@@ -481,9 +563,9 @@ npm run install:browsers
 
 **2. Test data files missing**
 ```bash
-# Check data/csv/loginData.csv exists
+# Check POM-Tests/test-data/csv/ exists
 # Generate Excel file:
-npx ts-node data/excel/createTestData.ts
+npx ts-node POM-Tests/test-data/excel/createTestData.ts
 ```
 
 **3. Permission errors on npm install**
@@ -507,7 +589,23 @@ npx tsc --version
 npm run build
 ```
 
-## 📚 Additional Resources
+**6. Database connection fails**
+- Verify `DB_DATABASE` is set correctly in `.env`
+- Check network connectivity to database server
+- Tests will skip gracefully if database is not configured
+
+**7. Credentials not found**
+- Verify `AUTH_CREDENTIAL_KEY` in `.env` matches a key in `test.config.ts`
+- Check that credentials are defined for the selected environment
+
+## 📚 Additional Documentation
+
+- [ARCHITECTURE.md](ARCHITECTURE.md) - Complete architecture guide with 3-layer pattern and folder structure
+- [FEATURES.md](FEATURES.md) - Advanced features: credentials management and database integration
+- [CI_CD_SETUP.md](CI_CD_SETUP.md) - Complete CI/CD pipeline configuration guide
+- [QUICK_START.md](QUICK_START.md) - Quick reference for common tasks
+
+### External Resources
 
 - [Playwright Documentation](https://playwright.dev)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)

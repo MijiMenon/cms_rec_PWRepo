@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { logger } from '../../../POM-Framework/utilities/logger';
+import { ScreenshotHelper } from '../../../POM-Framework/utilities/screenshotHelper';
 
 /**
  * BaseFeature - Abstract base class for all feature/scenario classes
@@ -53,10 +54,9 @@ export abstract class BaseFeature {
   }
 
   /**
-   * Take screenshot
+   * Take screenshot using ScreenshotHelper (saves to test-runs directory)
    */
   protected async takeScreenshot(name: string): Promise<void> {
-    await this.page.screenshot({ path: `screenshots/${name}_${Date.now()}.png`, fullPage: true });
-    logger.info(`Screenshot taken: ${name}`);
+    await ScreenshotHelper.capture(this.page, name, true);
   }
 }

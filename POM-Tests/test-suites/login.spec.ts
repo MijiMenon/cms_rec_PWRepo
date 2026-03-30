@@ -9,7 +9,6 @@ import globalSetup from '@hooks/globalSetup';
 import globalTeardown from '@hooks/globalTeardown';
 
 
-
 test.describe('Login Feature - Data Driven Tests', () => {
   test.beforeEach(async ({ page }, testInfo) => {
     await globalSetup(testInfo.config as any);

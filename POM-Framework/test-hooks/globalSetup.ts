@@ -4,6 +4,7 @@ import { ScreenshotHelper } from '../utilities/screenshotHelper';
 import { DataProvider } from '../utilities/data-readers/dataProvider';
 import { Helpers } from '../utilities/helpers';
 import { ConfigReader } from '../utilities/ConfigReader';
+import { DatabaseHelper } from '../database/DatabaseHelper';
 import * as dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
@@ -102,6 +103,9 @@ async function globalSetup(config: FullConfig) {
     // Fetch and store credentials for tests
     fetchAndStoreCredentials();
 
+    // Initialize database connection
+    await initializeDatabase();
+
     logger.info('Global setup completed successfully');
   } catch (error) {
     logger.error(`Global setup failed: ${error}`);
@@ -163,6 +167,41 @@ function fetchAndStoreCredentials(): void {
   } catch (error) {
     logger.error(`Failed to fetch credentials: ${error}`);
     throw error;
+  }
+}
+
+/**
+ * Initialize database connection
+ * Only initializes if database configuration is present
+ */
+async function initializeDatabase(): Promise<void> {
+  logger.info('Initializing database connection...');
+
+  try {
+    // Check if database configuration is present
+    if (!process.env.DB_SERVER || !process.env.DB_DATABASE) {
+      logger.warn('Database configuration not found in .env file. Skipping database initialization.');
+      logger.warn('To enable database features, configure DB_SERVER, DB_DATABASE, DB_USER, and DB_PASSWORD in .env file.');
+      return;
+    }
+
+    // Initialize database connection pool
+    await DatabaseHelper.initialize();
+
+    // Test the connection
+    await DatabaseHelper.testConnection();
+
+    logger.info('✓ Database initialized and connection tested successfully');
+
+    // Verify connection for test suites
+    const isConnected = await DatabaseHelper.isConnected();
+    if (!isConnected) {
+      logger.warn('Database not connected. Some tests may be skipped.');
+    }
+  } catch (error: any) {
+    logger.error(`Failed to initialize database: ${error.message}`);
+    logger.warn('Database not connected. Some tests may be skipped.');
+    // Don't throw error - allow tests to continue without database
   }
 }
 
